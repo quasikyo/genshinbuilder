@@ -9,9 +9,11 @@ const router = useRouter();
 const allRoutes = router.getRoutes();
 
 let menuItems = ref(generateMenuItems(allRoutes, supabase.auth.user()));
-onMounted(() => supabase.auth.onAuthStateChange((event, session) => {
-	menuItems.value = generateMenuItems(allRoutes, session?.user);
-}),);
+onMounted(
+	() => supabase.auth.onAuthStateChange((event, session) => {
+		menuItems.value = generateMenuItems(allRoutes, session?.user);
+	})
+);
 </script>
 
 <template>

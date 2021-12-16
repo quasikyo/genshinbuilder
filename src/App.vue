@@ -1,23 +1,44 @@
 <script setup lang="ts">
-import { NConfigProvider, NMessageProvider, NPageHeader, darkTheme } from 'naive-ui';
-import Navbar from './components/Navbar.vue';
+import {
+	NConfigProvider, darkTheme,
+	NMessageProvider,
+	NLayout,
+	NLayoutHeader,
+	NLayoutContent,
+	NSpace,
+} from 'naive-ui';
+import NavigationBar from './components/NavigationBar.vue';
 </script>
 
 <template>
 	<n-config-provider :theme="darkTheme">
 		<n-message-provider>
-			<n-page-header title="Genshin Builder">
-				<navbar></navbar>
-			</n-page-header>
-			<router-view></router-view>
+
+			<n-layout>
+				<n-layout-header>
+					<n-space justify="space-around" align="center">
+						<header style="display: inline-block;">
+							<h1 style="display: inherit;">Genshin Builder</h1>
+						</header>
+						<navigation-bar></navigation-bar>
+					</n-space>
+				</n-layout-header>
+
+				<n-layout-content style="padding-top: 15vh;">
+					<router-view></router-view>
+				</n-layout-content>
+			</n-layout>
+
 		</n-message-provider>
 	</n-config-provider>
 </template>
 
 <style>
 html,
-body {
-	color: rgba(255, 255, 255, 0.82);
-	background-color: #101014;
+body,
+#app,
+.n-config-provider,
+.n-layout {
+	height: 100%;
 }
 </style>

@@ -11,7 +11,7 @@ import { supabase } from '../supabase';
 const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
-		name: 'Index',
+		name: 'Home',
 		component: () => import('../pages/Index.vue'),
 	},
 	{
@@ -31,20 +31,20 @@ const routes: RouteRecordRaw[] = [
 		},
 	},
 	{
-		path: '/logout',
-		name: 'Logout',
-		component: () => import('../pages/auth/Logout.vue'),
-		meta: {
-			requiresAuth: true,
-		}
-	},
-	{
 		path: '/dashboard',
 		name: 'Dashboard',
 		component: () => import('../pages/dashboard/Dashboard.vue'),
 		meta: {
 			requiresAuth: true,
 		},
+	},
+	{
+		path: '/logout',
+		name: 'Logout',
+		component: () => import('../pages/auth/Logout.vue'),
+		meta: {
+			requiresAuth: true,
+		}
 	},
 ];
 
@@ -61,9 +61,9 @@ router.beforeEach((to, from, next) => {
 	const currentUser = supabase.auth.user();
 
 	if (requiresAuth && !currentUser) {
-		next({ name: 'login', query: { redirect: to.name as string } });
+		next({ name: 'Login', query: { redirect: to.name as string } });
 	} else if (forwardAuth && currentUser) {
-		next({ name: 'dashboard' })
+		next({ name: 'Dashboard' })
 	} else {
 		next();
 	} // if

@@ -31,17 +31,21 @@ const rules = ref({
 	],
 });
 
+function checkEnterPress(event: KeyboardEvent) {
+	event.key === 'Enter' && submitOnValid();
+} // checkEnterPress
+
 function submitOnValid() {
 	// @ts-ignore
 	form.value.validate((errors) => {
 		!errors && handleSubmit(inputs.value.email, inputs.value.password);
 	});
-} // function
+} // submitOnValid
 </script>
 
 <template>
-	<n-card :title="title" style="max-width: 600px; margin: auto;">
-		<n-form :rules="rules" :model="inputs" ref="form" size="large">
+	<n-card :title="title" style="max-width: 60%; margin: auto;">
+		<n-form :rules="rules" :model="inputs" ref="form" size="large" @keydown="checkEnterPress">
 			<n-form-item path="email" label="Email">
 				<n-input v-model:value="inputs.email" type="text"></n-input>
 			</n-form-item>
