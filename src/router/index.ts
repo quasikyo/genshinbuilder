@@ -11,12 +11,12 @@ import { supabase } from '../supabase';
 const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
-		name: 'index',
+		name: 'Index',
 		component: () => import('../pages/Index.vue'),
 	},
 	{
 		path: '/register',
-		name: 'register',
+		name: 'Register',
 		component: () => import('../pages/auth/Register.vue'),
 		meta: {
 			forwardAuth: true,
@@ -24,7 +24,7 @@ const routes: RouteRecordRaw[] = [
 	},
 	{
 		path: '/login',
-		name: 'login',
+		name: 'Login',
 		component: () => import('../pages/auth/Login.vue'),
 		meta: {
 			forwardAuth: true,
@@ -32,7 +32,7 @@ const routes: RouteRecordRaw[] = [
 	},
 	{
 		path: '/logout',
-		name: 'logout',
+		name: 'Logout',
 		component: () => import('../pages/auth/Logout.vue'),
 		meta: {
 			requiresAuth: true,
@@ -40,7 +40,7 @@ const routes: RouteRecordRaw[] = [
 	},
 	{
 		path: '/dashboard',
-		name: 'dashboard',
+		name: 'Dashboard',
 		component: () => import('../pages/dashboard/Dashboard.vue'),
 		meta: {
 			requiresAuth: true,

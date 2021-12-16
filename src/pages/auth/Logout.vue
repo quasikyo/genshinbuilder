@@ -7,7 +7,7 @@ const router = useRouter();
 
 onMounted(async () => {
 	await supabase.auth.signOut();
-	router.replace({ name: 'login' });
+	router.replace({ name: 'Login' });
 });
 </script>
 

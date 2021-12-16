@@ -14,7 +14,7 @@ async function loginUser(email: string, password: string) {
 		email, password,
 	});
 
-	const redirectTo = route.query.redirect as string || 'dashboard';
+	const redirectTo = route.query.redirect as string || 'Dashboard';
 	!!error ? message.error(error.message) : router.push({ name: redirectTo });
 } // loginUser
 </script>

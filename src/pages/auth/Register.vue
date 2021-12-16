@@ -13,7 +13,7 @@ async function registerUser(email: string, password: string) {
 		email, password,
 	});
 
-	!!error ? message.error(error.message) : router.push({ name: 'login' });
+	!!error ? message.error(error.message) : router.push({ name: 'Login' });
 } // registerUser
 </script>
 
