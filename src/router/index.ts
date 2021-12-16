@@ -31,6 +31,14 @@ const routes: RouteRecordRaw[] = [
 		},
 	},
 	{
+		path: '/logout',
+		name: 'logout',
+		component: () => import('../components/auth/Logout.vue'),
+		meta: {
+			requiresAuth: true,
+		}
+	},
+	{
 		path: '/dashboard',
 		name: 'dashboard',
 		component: () => import('../components/dashboard/Dashboard.vue'),
