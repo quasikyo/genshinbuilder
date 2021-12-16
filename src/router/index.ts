@@ -12,12 +12,12 @@ const routes: RouteRecordRaw[] = [
 	{
 		path: '/',
 		name: 'index',
-		component: () => import('../components/Index.vue'),
+		component: () => import('../pages/Index.vue'),
 	},
 	{
 		path: '/register',
 		name: 'register',
-		component: () => import('../components/auth/Register.vue'),
+		component: () => import('../pages/auth/Register.vue'),
 		meta: {
 			forwardAuth: true,
 		},
@@ -25,7 +25,7 @@ const routes: RouteRecordRaw[] = [
 	{
 		path: '/login',
 		name: 'login',
-		component: () => import('../components/auth/Login.vue'),
+		component: () => import('../pages/auth/Login.vue'),
 		meta: {
 			forwardAuth: true,
 		},
@@ -33,7 +33,7 @@ const routes: RouteRecordRaw[] = [
 	{
 		path: '/logout',
 		name: 'logout',
-		component: () => import('../components/auth/Logout.vue'),
+		component: () => import('../pages/auth/Logout.vue'),
 		meta: {
 			requiresAuth: true,
 		}
@@ -41,7 +41,7 @@ const routes: RouteRecordRaw[] = [
 	{
 		path: '/dashboard',
 		name: 'dashboard',
-		component: () => import('../components/dashboard/Dashboard.vue'),
+		component: () => import('../pages/dashboard/Dashboard.vue'),
 		meta: {
 			requiresAuth: true,
 		},
@@ -61,7 +61,7 @@ router.beforeEach((to, from, next) => {
 	const currentUser = supabase.auth.user();
 
 	if (requiresAuth && !currentUser) {
-		next({ name: 'login', query: { redirect: to.fullPath } });
+		next({ name: 'login', query: { redirect: to.name as string } });
 	} else if (forwardAuth && currentUser) {
 		next({ name: 'dashboard' })
 	} else {
