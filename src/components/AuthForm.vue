@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { NCard, NForm, NFormItem, NInput, NButton } from 'naive-ui';
+import { NCard, NForm, NFormItem, NInput, NButton, NSpace, NDivider } from 'naive-ui';
+import { supabase } from '../supabase';
 import { AuthFunction } from '../types';
 
 const { handleSubmit } = defineProps<{
@@ -53,8 +54,12 @@ function submitOnValid() {
 				<n-input v-model:value="inputs.password" type="password"></n-input>
 			</n-form-item>
 			<n-form-item>
-				<n-button @click="submitOnValid" type="primary" style="position: absolute; right: 0;">Submit</n-button>
+				<n-space justify="end" style="width: 100%;">
+					<n-button @click="submitOnValid" type="primary">Submit</n-button>
+				</n-space>
 			</n-form-item>
 		</n-form>
+		<n-divider></n-divider>
+		<n-button type="info" @click="supabase.auth.signIn({ provider: 'discord' })">Discord</n-button>
 	</n-card>
 </template>
