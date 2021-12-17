@@ -4,11 +4,8 @@ import { Store } from "../types";
 import { notify } from "./subscribers";
 import { QUERIES } from "./queries";
 
-export let store: Store = {};
-
-let intervalId: any;
 let isStoreInitialized = false;
-const pollingSeconds = 1.5;
+export let store: Store = reactive({});
 
 /**
  * Updates the global `store` instance
@@ -26,24 +23,13 @@ export function initStore() {
 	} // if
 
 	// Select all relevant data
-	QUERIES.forEach(async (query) => {
+	Promise.all(QUERIES.map(async (query) => {
 		const { table, query: queryString } = query;
 		const { data, error } = await supabase.from(table).select(queryString);
 		error ? console.error(error) : Object.assign(store, { [table]: data });
 		query.isLoaded = true;
-	});
+	}));
 
-	// Make the store reactive and set polling
-	// to avoid accessing the data to early.
-	// async/await doesn't play nice with Vue3's setup.
-	store = reactive(store);
 	isStoreInitialized = true;
-	intervalId = setInterval(noitfyIfReady, pollingSeconds * 1000);
+	notify('ready', store);
 } // initStore
-
-function noitfyIfReady() {
-	if (QUERIES.every(({ isLoaded }) => isLoaded)) {
-		notify('ready', store);
-		clearInterval(intervalId);
-	} // if
-} // noitfyIfReady

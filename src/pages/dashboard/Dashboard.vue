@@ -1,26 +1,56 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
-import { NCard, NSpin } from 'naive-ui';
-import { initStore } from '../../store';
-import { subscribe } from '../../store/subscribers';
-import { Store } from '../../types';
+import { ref, reactive, watchEffect } from 'vue';
+import { NSpace, NSpin, NList, NListItem, NThing } from 'naive-ui';
+import { initStore, store } from '../../store';
 
-const data = ref({});
-const isStoreLoaded = ref(false);
+const isStoreLoaded = ref(true); // DEGBUG (set to false when done)
+const listItems = reactive([
+	{
+		title: 'Manage Weapons',
+		description: 'Browse, create, and edit weapons for builds.'
+	},
+	{
+		title: 'Manage Artifacts',
+		description: '',
+	},
+	{
+		title: 'Manage Characters',
+		description: '',
+	},
+	{
+		title: 'Manage Builds',
+		description: 'Create and edit builds for characters.',
+	},
+	{
+		title: 'Manage Teams',
+		description: '',
+	},
+	{
+		title: 'Team Pairs',
+		description: 'Manage',
+	},
+]);
 
-function configureDashboard(store: Store) {
-	isStoreLoaded.value = true;
-	data.value = store;
-} // configureDashboard
-subscribe('ready', configureDashboard);
-onMounted(initStore);
+watchEffect(() => {
+	// Simple check to see if loaded
+	// isStoreLoaded.value = 'Character' in store; // DEBUG
+});
+
+// initStore(); // DEBUG
 </script>
 
 <template>
-	<n-card>
-		<pre v-if="isStoreLoaded">{{ JSON.stringify(data, 0, 2) }}</pre>
-		<n-spin v-else :size="50">Loading...</n-spin>
-	</n-card>
+	<n-space justify="center">
+		<n-spin v-if="!isStoreLoaded" :size="300"></n-spin>
+
+		<n-list v-else bordered>
+			<n-list-item v-for="item in listItems">
+				<n-thing :title="item.title" :description="item.description">
+
+				</n-thing>
+			</n-list-item>
+		</n-list>
+	</n-space>
 </template>
 
 <style>
