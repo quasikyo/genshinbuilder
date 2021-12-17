@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useRouter } from 'vue-router';
 import {
 	NConfigProvider, darkTheme,
 	NMessageProvider,
@@ -8,6 +9,8 @@ import {
 	NSpace,
 } from 'naive-ui';
 import NavigationBar from './components/NavigationBar.vue';
+
+const router = useRouter();
 </script>
 
 <template>
@@ -20,6 +23,7 @@ import NavigationBar from './components/NavigationBar.vue';
 						<header style="display: inline-block;">
 							<h1 style="display: inherit;">Genshin Builder</h1>
 						</header>
+						<h3>{{ router.currentRoute.value.name }}</h3>
 						<navigation-bar></navigation-bar>
 					</n-space>
 				</n-layout-header>
