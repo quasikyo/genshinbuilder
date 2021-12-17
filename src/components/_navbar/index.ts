@@ -1,19 +1,20 @@
 import { h } from 'vue';
-import { RouterLink, RouteRecordNormalized } from 'vue-router';
+import { RouterLink, RouteRecordRaw } from 'vue-router';
 import { User } from '@supabase/supabase-js';
 
 export function generateMenuItems(
-	allRoutes: RouteRecordNormalized[],
+	allRoutes: RouteRecordRaw[],
 	user: User | null | undefined): any[] { // really MenuMixedOption[] but ugly errors
 		// logged in: all routes that don't forward authed users
 		// logged out: all routes that don't require auth
 		const excludeProperty = user ? 'forwardAuth': 'requiresAuth';
 		const availableRoutes = allRoutes.filter(({ meta }) => {
-			return !(excludeProperty in meta);
+			// RouteRecordRaw isn't guaranteed to have meta
+			return meta && !(excludeProperty in meta);
 		});
 
 		return availableRoutes.map((route) => {
-			return {
+			const menuItem = {
 				label:() => h(
 					RouterLink,
 					{ to: { name: route.name } },
@@ -21,5 +22,13 @@ export function generateMenuItems(
 				),
 				key: route.path,
 			};
+
+			if (route.children) {
+				Object.assign(menuItem, {
+					children: generateMenuItems(route.children, user)
+				});
+			} // if
+
+			return menuItem;
 		});
 } // generateMenuItems

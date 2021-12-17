@@ -6,7 +6,7 @@ import { supabase } from '../supabase';
 import { generateMenuItems } from './_navbar';
 
 const router = useRouter();
-const allRoutes = router.getRoutes();
+const allRoutes = router.options.routes;
 
 let menuItems = ref(generateMenuItems(allRoutes, supabase.auth.user()));
 onMounted(

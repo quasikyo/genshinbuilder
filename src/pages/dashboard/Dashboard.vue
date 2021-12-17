@@ -1,22 +1,25 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue';
-import { NCard } from 'naive-ui';
+import { ref, onMounted } from 'vue';
+import { NCard, NSpin } from 'naive-ui';
 import { initStore } from '../../store';
 import { subscribe } from '../../store/subscribers';
 import { Store } from '../../types';
 
-const data = ref('');
+const data = ref({});
+const isStoreLoaded = ref(false);
+
 function configureDashboard(store: Store) {
+	isStoreLoaded.value = true;
 	data.value = store;
 } // configureDashboard
 subscribe('ready', configureDashboard);
-
-initStore();
+onMounted(initStore);
 </script>
 
 <template>
 	<n-card>
-		<pre>{{ JSON.stringify(data, 0, 2) }}</pre>
+		<pre v-if="isStoreLoaded">{{ JSON.stringify(data, 0, 2) }}</pre>
+		<n-spin v-else :size="50">Loading...</n-spin>
 	</n-card>
 </template>
 

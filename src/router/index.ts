@@ -13,6 +13,7 @@ const routes: RouteRecordRaw[] = [
 		path: '/',
 		name: 'Home',
 		component: () => import('../pages/Index.vue'),
+		meta: {},
 	},
 	{
 		path: '/register',
@@ -37,6 +38,16 @@ const routes: RouteRecordRaw[] = [
 		meta: {
 			requiresAuth: true,
 		},
+		children: [
+			{
+				path: 'characters',
+				name: 'Characters',
+				component: () => import('../components/dashboard/Characters.vue'),
+				meta: {
+					requiresAuth: true,
+				},
+			},
+		],
 	},
 	{
 		path: '/logout',
@@ -44,7 +55,7 @@ const routes: RouteRecordRaw[] = [
 		component: () => import('../pages/auth/Logout.vue'),
 		meta: {
 			requiresAuth: true,
-		}
+		},
 	},
 ];
 
