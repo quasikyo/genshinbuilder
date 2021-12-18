@@ -53,4 +53,16 @@ body,
 	top: 50%;
 	transform: translate(-50% , -50%)
 }
+
+.n-card.n-card--bordered.border-purple {
+	border-color: purple;
+}
+
+.n-card.n-card--bordered.border-gold {
+	border-color: rgb(233, 198, 46);
+}
+
+.n-card.no-content > .n-card__content {
+	padding: 0 !important;
+}
 </style>

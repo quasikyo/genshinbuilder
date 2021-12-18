@@ -45,11 +45,20 @@ export default {
 
 <template>
 	<n-button type="primary" size="large" round icon-placement="right" @click="openDrawer">
-		<template #icon><n-icon><plus></plus></n-icon></template>
+		<template #icon>
+			<n-icon>
+				<plus></plus>
+			</n-icon>
+		</template>
 		<strong>Add New</strong>
 	</n-button>
 
-	<n-modal v-model:show="doShowModal" preset="card" :title="modalDetails.title + '\'s Base Stats'" style="width: 33%;">
+	<n-modal
+		v-model:show="doShowModal"
+		preset="card"
+		:title="modalDetails.title + '\'s Base Stats'"
+		style="width: 33%;"
+	>
 		<n-table>
 			<thead>
 				<th v-for="column in Object.keys(modalDetails.data[0])">{{ column }}</th>
@@ -66,20 +75,27 @@ export default {
 	<n-drawer v-model:show="isDrawerActive" placement="left" width="33%">
 		<n-drawer-content :closable="true" title="Characters">
 			search and filter controls here
-
-			<n-card v-for="character in store.Character" :title="character.name" style="margin-top: 1rem;">
-				each card is just character image, name, and color background according to rarity
-				<template #action>
+			<n-card
+				v-for="character in store.Character"
+				:title="character.name"
+				style="margin-top: 1rem;"
+				class="no-content"
+				:class="character.rarity === 4 ? 'border-purple' : 'border-gold'"
+			>
+				<template #header-extra>
 					<n-space justify="end" style="width: 100%;">
 						<n-button @click="displayDetails(character)">Base Stats</n-button>
 						<n-button type="primary">Add</n-button>
 					</n-space>
 				</template>
 			</n-card>
-
 		</n-drawer-content>
 	</n-drawer>
 
-	<n-empty v-if="!store.CharacterCopy || store.CharacterCopy.length === 0" description="No characters yet." size="huge" class="center">
-	</n-empty>
+	<n-empty
+		v-if="!store.CharacterCopy || store.CharacterCopy.length === 0"
+		description="No characters yet."
+		size="huge"
+		class="center"
+	></n-empty>
 </template>
