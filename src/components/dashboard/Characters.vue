@@ -12,7 +12,7 @@ import {
 	NTable,
 } from 'naive-ui';
 import { Plus } from '@vicons/fa';
-import { store } from '../../store';
+import { store, characterStats } from '../../store';
 import { definitions } from '../../supabase';
 
 const isDrawerActive = ref(false);
@@ -20,15 +20,11 @@ const doShowModal = ref(false);
 
 const modalDetails = reactive<{
 	title: string;
-	data: definitions['Character'] | undefined | null,
+	data: any,
 }>({
 	title: '',
 	data: null,
 });
-
-let baseHP: definitions['StatValue'] = ref({})
-let baseATK: definitions['StatValue'] = ref({});
-let baseDEF: definitions['StatValue'] = ref({});
 
 function openDrawer() {
 	isDrawerActive.value = true;
@@ -36,18 +32,7 @@ function openDrawer() {
 
 function displayDetails(character: definitions['Character']) {
 	modalDetails.title = character.name;
-	modalDetails.data = character;
-
-	baseHP.value = store.StatValue.filter(
-		(value: definitions['StatValue']) => modalDetails.data?.base_hp === value.id
-	)[0];
-	baseATK.value = store.StatValue.filter(
-		(value: definitions['StatValue']) => modalDetails.data?.base_atk === value.id
-	)[0];
-	baseDEF.value = store.StatValue.filter(
-		(value: definitions['StatValue']) => modalDetails.data?.base_def === value.id
-	)[0];
-
+	modalDetails.data = characterStats(character);
 	doShowModal.value = true;
 } // displayDetails
 </script>
@@ -64,6 +49,7 @@ export default {
 		<strong>Add New</strong>
 	</n-button>
 
+	<!--  TODO: generate table in store -->
 	<n-modal v-model:show="doShowModal" preset="card" :title="modalDetails.title + '\'s Base Stats'" style="width: 33%;">
 		<n-table>
 			<thead>
@@ -74,12 +60,12 @@ export default {
 				<th>DEF</th>
 			</thead>
 			<tbody>
-				<tr v-for="(level, i) in baseATK.level">
-					<td>{{ level }}</td>
-					<td>{{ baseATK.ascension[i] }}</td>
-					<td>{{ baseHP.value[i] }}</td>
-					<td>{{ baseATK.value[i] }}</td>
-					<td>{{ baseDEF.value[i] }}</td>
+				<tr v-for="entry in modalDetails.data">
+					<td>{{ entry.level }}</td>
+					<td>{{ entry.ascension }}</td>
+					<td>{{ entry.hp }}</td>
+					<td>{{ entry.atk }}</td>
+					<td>{{ entry.def }}</td>
 				</tr>
 			</tbody>
 		</n-table>
