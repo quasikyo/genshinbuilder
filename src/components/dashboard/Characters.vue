@@ -12,7 +12,7 @@ import {
 	NTable,
 } from 'naive-ui';
 import { Plus } from '@vicons/fa';
-import { store, characterStats } from '../../store';
+import { store, characterStatEntries } from '../../store';
 import { definitions } from '../../supabase';
 
 const isDrawerActive = ref(false);
@@ -32,7 +32,7 @@ function openDrawer() {
 
 function displayDetails(character: definitions['Character']) {
 	modalDetails.title = character.name;
-	modalDetails.data = characterStats(character);
+	modalDetails.data = characterStatEntries(character);
 	doShowModal.value = true;
 } // displayDetails
 </script>
@@ -49,23 +49,15 @@ export default {
 		<strong>Add New</strong>
 	</n-button>
 
-	<!--  TODO: generate table in store -->
 	<n-modal v-model:show="doShowModal" preset="card" :title="modalDetails.title + '\'s Base Stats'" style="width: 33%;">
 		<n-table>
 			<thead>
-				<th>Level</th>
-				<th>Ascension</th>
-				<th>HP</th>
-				<th>ATK</th>
-				<th>DEF</th>
+				<th v-for="column in Object.keys(modalDetails.data[0])">{{ column }}</th>
 			</thead>
 			<tbody>
-				<tr v-for="entry in modalDetails.data">
-					<td>{{ entry.level }}</td>
-					<td>{{ entry.ascension }}</td>
-					<td>{{ entry.hp }}</td>
-					<td>{{ entry.atk }}</td>
-					<td>{{ entry.def }}</td>
+				<!-- `entry` is a dictionary with { column: value, ... } -->
+				<tr v-for="row in modalDetails.data">
+					<td v-for="value in row">{{ value }}</td>
 				</tr>
 			</tbody>
 		</n-table>

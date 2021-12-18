@@ -39,11 +39,11 @@ export const QUERIES = [
 	// 	query: '*',
 	// 	isLoaded: false,
 	// },
-	// {
-	// 	table: 'Stat',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
+	{
+		table: 'Stat',
+		query: '*',
+		isLoaded: false,
+	},
 	{
 		table: 'StatValue',
 		query: '*',
