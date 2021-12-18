@@ -45,4 +45,12 @@ body,
 .n-layout {
 	height: 100%;
 }
+
+.center {
+	/* Yes, I know this is the bad way. Bite me. */
+	left: 50%;
+	position: absolute;
+	top: 50%;
+	transform: translate(-50% , -50%)
+}
 </style>
