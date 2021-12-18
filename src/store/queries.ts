@@ -44,11 +44,11 @@ export const QUERIES = [
 	// 	query: '*',
 	// 	isLoaded: false,
 	// },
-	// {
-	// 	table: 'StatValue',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
+	{
+		table: 'StatValue',
+		query: '*',
+		isLoaded: false,
+	},
 	// {
 	// 	table: 'Team',
 	// 	query: '*',
