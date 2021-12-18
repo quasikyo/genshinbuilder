@@ -45,7 +45,7 @@ function submitOnValid() {
 </script>
 
 <template>
-	<n-card :title="title" style="max-width: 60%; margin: auto;">
+	<n-card :title="title" style="max-width: 60%; margin: auto; margin-top: 15vh;">
 		<n-form :rules="rules" :model="inputs" ref="form" size="large" @keydown="checkEnterPress">
 			<n-form-item path="email" label="Email">
 				<n-input v-model:value="inputs.email" type="text"></n-input>

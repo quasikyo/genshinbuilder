@@ -28,7 +28,7 @@ const router = useRouter();
 					</n-space>
 				</n-layout-header>
 
-				<n-layout-content style="padding-top: 15vh;">
+				<n-layout-content>
 					<router-view></router-view>
 				</n-layout-content>
 			</n-layout>
