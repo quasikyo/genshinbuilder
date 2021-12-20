@@ -29,8 +29,8 @@ export const QUERIES = [
 		table: 'AscensionValueFactors',
 		select: 'ascension, factor'
 	},
-	// {
-	// 	table: 'AscensionMultipliers',
-	// 	select: 'ascension, multiplier'
-	// },
+	{
+		table: 'AscensionMultipliers',
+		select: 'ascension, multiplier'
+	},
 ];

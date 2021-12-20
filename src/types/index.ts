@@ -1,5 +1,3 @@
-import { UnwrapNestedRefs } from 'vue';
-
 export type AuthFunction = (email: string, password: string) => void;
 
 // reference: /src/store/queries.ts: select property
@@ -9,8 +7,9 @@ export type WeaponType = "Sword" | "Claymore" | "Spear" | "Catalyst" | "Bow";
 
 export type StatValue = { value: number, stat: { abbreviation: string }, };
 export type Ascension = 0 | 1 | 2 | 3 | 4 | 5 | 6 ;
-export type AscensionValue = { values: number[], };
+export type AscensionValue = { stat?: StatValue, values: number[], };
 export type AscensionValueFactor = { ascension?: Ascension, factor: number, };
+export type AscensionMultipler = { ascension?: Ascension, multiplier: 0 | 1 | 2 | 3 | 4 };
 export type LevelMultiplier = { regression_factors: number[], };
 
 export type Character = {
@@ -29,11 +28,12 @@ export type Character = {
 	level_multiplier: LevelMultiplier,
 };
 
-export type Store = UnwrapNestedRefs<{
+export type Store = {
 	// reference: /src/store/queries.ts: table property
 	Characters: Character[],
-	AscensionValueFactors: AscensionValueFactor[]
-}>;
+	AscensionValueFactors: AscensionValueFactor[],
+	AscensionMultipliers: AscensionMultipler[],
+};
 export type StoreEvent = 'ready';
 export type StoreSubscriber = (store: Store) => void;
 export type SubscriptionRecord = { name: string, func: StoreSubscriber };

@@ -6,7 +6,7 @@ import { QUERIES } from './queries';
 
 let isStoreInitialized = false;
 // @ts-ignore the properties are loaded dynamically
-export const store: Store = reactive({});
+export const store = reactive<Store>({});
 
 /**
  * Updates the global `store` instance

@@ -66,6 +66,19 @@ export function calculateCharacterStats(
 } // calculateCharacterStat
 
 /**
+ *
+ * @param baseStat Ascension stat to calculate.
+ * @param ascension The ascension at which to calculate
+ * @returns `{ [statAbbreviation]: number }`
+ */
+export function calculateCharacterAscensionStat(baseStat: StatValue, ascension: number): {} {
+	return {
+		[baseStat.stat.abbreviation]: baseStat.value
+			* store.AscensionMultipliers[ascension].multiplier
+	};
+} // calculateCharacterAscensionStat
+
+/**
  * Enumerates all possible base stats for a given character.
  * @param character The character to calculate stats for.
  */
@@ -73,11 +86,7 @@ export function calculateCharacterAll(character: Character) {
 	const entries: any[] = [];
 
 	const [characterBaseStats, characterAscensionValues] = [
-		[
-			character.base_hp,
-			character.base_atk,
-			character.base_def,
-		],
+		[character.base_hp, character.base_atk, character.base_def,],
 		[
 			character.hp_ascension_value,
 			character.atk_ascension_value,
@@ -88,10 +97,15 @@ export function calculateCharacterAll(character: Character) {
 	// @ts-ignore shut up
 	LEVELS_BY_ASCENSION.forEach((levels, ascension: Ascension) => {
 		levels.forEach((level) => {
-			entries.push(calculateCharacterStats(
-				characterBaseStats, level, character.level_multiplier,
-				ascension, characterAscensionValues
-			));
+			entries.push({
+				...calculateCharacterStats(
+					characterBaseStats, level, character.level_multiplier,
+					ascension, characterAscensionValues
+				),
+				...calculateCharacterAscensionStat(
+					character.ascension_base, ascension
+				),
+			});
 		});
 	});
 
