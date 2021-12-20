@@ -12,15 +12,19 @@ export interface paths {
       };
     };
   };
-  "/Artifact": {
+  "/ArtifactCopies": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Artifact.id"];
-          created_at?: parameters["rowFilter.Artifact.created_at"];
-          set?: parameters["rowFilter.Artifact.set"];
-          rarity?: parameters["rowFilter.Artifact.rarity"];
-          type?: parameters["rowFilter.Artifact.type"];
+          id?: parameters["rowFilter.ArtifactCopies.id"];
+          owner?: parameters["rowFilter.ArtifactCopies.owner"];
+          artifact_id?: parameters["rowFilter.ArtifactCopies.artifact_id"];
+          level?: parameters["rowFilter.ArtifactCopies.level"];
+          main_stat?: parameters["rowFilter.ArtifactCopies.main_stat"];
+          sub_stat1?: parameters["rowFilter.ArtifactCopies.sub_stat1"];
+          sub_stat2?: parameters["rowFilter.ArtifactCopies.sub_stat2"];
+          sub_stat3?: parameters["rowFilter.ArtifactCopies.sub_stat3"];
+          sub_stat4?: parameters["rowFilter.ArtifactCopies.sub_stat4"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -42,7 +46,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["Artifact"][];
+          schema: definitions["ArtifactCopies"][];
         };
         /** Partial Content */
         206: unknown;
@@ -51,8 +55,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** Artifact */
-          Artifact?: definitions["Artifact"];
+          /** ArtifactCopies */
+          ArtifactCopies?: definitions["ArtifactCopies"];
         };
         query: {
           /** Filtering Columns */
@@ -71,11 +75,15 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Artifact.id"];
-          created_at?: parameters["rowFilter.Artifact.created_at"];
-          set?: parameters["rowFilter.Artifact.set"];
-          rarity?: parameters["rowFilter.Artifact.rarity"];
-          type?: parameters["rowFilter.Artifact.type"];
+          id?: parameters["rowFilter.ArtifactCopies.id"];
+          owner?: parameters["rowFilter.ArtifactCopies.owner"];
+          artifact_id?: parameters["rowFilter.ArtifactCopies.artifact_id"];
+          level?: parameters["rowFilter.ArtifactCopies.level"];
+          main_stat?: parameters["rowFilter.ArtifactCopies.main_stat"];
+          sub_stat1?: parameters["rowFilter.ArtifactCopies.sub_stat1"];
+          sub_stat2?: parameters["rowFilter.ArtifactCopies.sub_stat2"];
+          sub_stat3?: parameters["rowFilter.ArtifactCopies.sub_stat3"];
+          sub_stat4?: parameters["rowFilter.ArtifactCopies.sub_stat4"];
         };
         header: {
           /** Preference */
@@ -90,15 +98,19 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Artifact.id"];
-          created_at?: parameters["rowFilter.Artifact.created_at"];
-          set?: parameters["rowFilter.Artifact.set"];
-          rarity?: parameters["rowFilter.Artifact.rarity"];
-          type?: parameters["rowFilter.Artifact.type"];
+          id?: parameters["rowFilter.ArtifactCopies.id"];
+          owner?: parameters["rowFilter.ArtifactCopies.owner"];
+          artifact_id?: parameters["rowFilter.ArtifactCopies.artifact_id"];
+          level?: parameters["rowFilter.ArtifactCopies.level"];
+          main_stat?: parameters["rowFilter.ArtifactCopies.main_stat"];
+          sub_stat1?: parameters["rowFilter.ArtifactCopies.sub_stat1"];
+          sub_stat2?: parameters["rowFilter.ArtifactCopies.sub_stat2"];
+          sub_stat3?: parameters["rowFilter.ArtifactCopies.sub_stat3"];
+          sub_stat4?: parameters["rowFilter.ArtifactCopies.sub_stat4"];
         };
         body: {
-          /** Artifact */
-          Artifact?: definitions["Artifact"];
+          /** ArtifactCopies */
+          ArtifactCopies?: definitions["ArtifactCopies"];
         };
         header: {
           /** Preference */
@@ -111,20 +123,15 @@ export interface paths {
       };
     };
   };
-  "/ArtifactCopy": {
+  "/ArtifactSets": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ArtifactCopy.id"];
-          owner?: parameters["rowFilter.ArtifactCopy.owner"];
-          created_at?: parameters["rowFilter.ArtifactCopy.created_at"];
-          artifact_id?: parameters["rowFilter.ArtifactCopy.artifact_id"];
-          level?: parameters["rowFilter.ArtifactCopy.level"];
-          main_stat?: parameters["rowFilter.ArtifactCopy.main_stat"];
-          sub_stat1?: parameters["rowFilter.ArtifactCopy.sub_stat1"];
-          sub_stat2?: parameters["rowFilter.ArtifactCopy.sub_stat2"];
-          sub_stat3?: parameters["rowFilter.ArtifactCopy.sub_stat3"];
-          sub_stat4?: parameters["rowFilter.ArtifactCopy.sub_stat4"];
+          id?: parameters["rowFilter.ArtifactSets.id"];
+          name?: parameters["rowFilter.ArtifactSets.name"];
+          one_piece_bonus?: parameters["rowFilter.ArtifactSets.one_piece_bonus"];
+          two_piece_bonus?: parameters["rowFilter.ArtifactSets.two_piece_bonus"];
+          four_piece_bonus?: parameters["rowFilter.ArtifactSets.four_piece_bonus"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -146,7 +153,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["ArtifactCopy"][];
+          schema: definitions["ArtifactSets"][];
         };
         /** Partial Content */
         206: unknown;
@@ -155,8 +162,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** ArtifactCopy */
-          ArtifactCopy?: definitions["ArtifactCopy"];
+          /** ArtifactSets */
+          ArtifactSets?: definitions["ArtifactSets"];
         };
         query: {
           /** Filtering Columns */
@@ -175,16 +182,11 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ArtifactCopy.id"];
-          owner?: parameters["rowFilter.ArtifactCopy.owner"];
-          created_at?: parameters["rowFilter.ArtifactCopy.created_at"];
-          artifact_id?: parameters["rowFilter.ArtifactCopy.artifact_id"];
-          level?: parameters["rowFilter.ArtifactCopy.level"];
-          main_stat?: parameters["rowFilter.ArtifactCopy.main_stat"];
-          sub_stat1?: parameters["rowFilter.ArtifactCopy.sub_stat1"];
-          sub_stat2?: parameters["rowFilter.ArtifactCopy.sub_stat2"];
-          sub_stat3?: parameters["rowFilter.ArtifactCopy.sub_stat3"];
-          sub_stat4?: parameters["rowFilter.ArtifactCopy.sub_stat4"];
+          id?: parameters["rowFilter.ArtifactSets.id"];
+          name?: parameters["rowFilter.ArtifactSets.name"];
+          one_piece_bonus?: parameters["rowFilter.ArtifactSets.one_piece_bonus"];
+          two_piece_bonus?: parameters["rowFilter.ArtifactSets.two_piece_bonus"];
+          four_piece_bonus?: parameters["rowFilter.ArtifactSets.four_piece_bonus"];
         };
         header: {
           /** Preference */
@@ -199,20 +201,15 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ArtifactCopy.id"];
-          owner?: parameters["rowFilter.ArtifactCopy.owner"];
-          created_at?: parameters["rowFilter.ArtifactCopy.created_at"];
-          artifact_id?: parameters["rowFilter.ArtifactCopy.artifact_id"];
-          level?: parameters["rowFilter.ArtifactCopy.level"];
-          main_stat?: parameters["rowFilter.ArtifactCopy.main_stat"];
-          sub_stat1?: parameters["rowFilter.ArtifactCopy.sub_stat1"];
-          sub_stat2?: parameters["rowFilter.ArtifactCopy.sub_stat2"];
-          sub_stat3?: parameters["rowFilter.ArtifactCopy.sub_stat3"];
-          sub_stat4?: parameters["rowFilter.ArtifactCopy.sub_stat4"];
+          id?: parameters["rowFilter.ArtifactSets.id"];
+          name?: parameters["rowFilter.ArtifactSets.name"];
+          one_piece_bonus?: parameters["rowFilter.ArtifactSets.one_piece_bonus"];
+          two_piece_bonus?: parameters["rowFilter.ArtifactSets.two_piece_bonus"];
+          four_piece_bonus?: parameters["rowFilter.ArtifactSets.four_piece_bonus"];
         };
         body: {
-          /** ArtifactCopy */
-          ArtifactCopy?: definitions["ArtifactCopy"];
+          /** ArtifactSets */
+          ArtifactSets?: definitions["ArtifactSets"];
         };
         header: {
           /** Preference */
@@ -225,16 +222,15 @@ export interface paths {
       };
     };
   };
-  "/ArtifactSet": {
+  "/Artifacts": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ArtifactSet.id"];
-          created_at?: parameters["rowFilter.ArtifactSet.created_at"];
-          name?: parameters["rowFilter.ArtifactSet.name"];
-          one_piece_bonus?: parameters["rowFilter.ArtifactSet.one_piece_bonus"];
-          two_piece_bonus?: parameters["rowFilter.ArtifactSet.two_piece_bonus"];
-          four_piece_bonus?: parameters["rowFilter.ArtifactSet.four_piece_bonus"];
+          id?: parameters["rowFilter.Artifacts.id"];
+          created_at?: parameters["rowFilter.Artifacts.created_at"];
+          set?: parameters["rowFilter.Artifacts.set"];
+          rarity?: parameters["rowFilter.Artifacts.rarity"];
+          type?: parameters["rowFilter.Artifacts.type"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -256,7 +252,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["ArtifactSet"][];
+          schema: definitions["Artifacts"][];
         };
         /** Partial Content */
         206: unknown;
@@ -265,8 +261,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** ArtifactSet */
-          ArtifactSet?: definitions["ArtifactSet"];
+          /** Artifacts */
+          Artifacts?: definitions["Artifacts"];
         };
         query: {
           /** Filtering Columns */
@@ -285,12 +281,11 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ArtifactSet.id"];
-          created_at?: parameters["rowFilter.ArtifactSet.created_at"];
-          name?: parameters["rowFilter.ArtifactSet.name"];
-          one_piece_bonus?: parameters["rowFilter.ArtifactSet.one_piece_bonus"];
-          two_piece_bonus?: parameters["rowFilter.ArtifactSet.two_piece_bonus"];
-          four_piece_bonus?: parameters["rowFilter.ArtifactSet.four_piece_bonus"];
+          id?: parameters["rowFilter.Artifacts.id"];
+          created_at?: parameters["rowFilter.Artifacts.created_at"];
+          set?: parameters["rowFilter.Artifacts.set"];
+          rarity?: parameters["rowFilter.Artifacts.rarity"];
+          type?: parameters["rowFilter.Artifacts.type"];
         };
         header: {
           /** Preference */
@@ -305,16 +300,15 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.ArtifactSet.id"];
-          created_at?: parameters["rowFilter.ArtifactSet.created_at"];
-          name?: parameters["rowFilter.ArtifactSet.name"];
-          one_piece_bonus?: parameters["rowFilter.ArtifactSet.one_piece_bonus"];
-          two_piece_bonus?: parameters["rowFilter.ArtifactSet.two_piece_bonus"];
-          four_piece_bonus?: parameters["rowFilter.ArtifactSet.four_piece_bonus"];
+          id?: parameters["rowFilter.Artifacts.id"];
+          created_at?: parameters["rowFilter.Artifacts.created_at"];
+          set?: parameters["rowFilter.Artifacts.set"];
+          rarity?: parameters["rowFilter.Artifacts.rarity"];
+          type?: parameters["rowFilter.Artifacts.type"];
         };
         body: {
-          /** ArtifactSet */
-          ArtifactSet?: definitions["ArtifactSet"];
+          /** Artifacts */
+          Artifacts?: definitions["Artifacts"];
         };
         header: {
           /** Preference */
@@ -327,21 +321,12 @@ export interface paths {
       };
     };
   };
-  "/Build": {
+  "/AscensionMultipliers": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Build.id"];
-          created_at?: parameters["rowFilter.Build.created_at"];
-          name?: parameters["rowFilter.Build.name"];
-          description?: parameters["rowFilter.Build.description"];
-          owner?: parameters["rowFilter.Build.owner"];
-          weapon?: parameters["rowFilter.Build.weapon"];
-          flower?: parameters["rowFilter.Build.flower"];
-          feather?: parameters["rowFilter.Build.feather"];
-          sands?: parameters["rowFilter.Build.sands"];
-          goblet?: parameters["rowFilter.Build.goblet"];
-          circlet?: parameters["rowFilter.Build.circlet"];
+          ascension?: parameters["rowFilter.AscensionMultipliers.ascension"];
+          multiplier?: parameters["rowFilter.AscensionMultipliers.multiplier"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -363,7 +348,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["Build"][];
+          schema: definitions["AscensionMultipliers"][];
         };
         /** Partial Content */
         206: unknown;
@@ -372,8 +357,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** Build */
-          Build?: definitions["Build"];
+          /** AscensionMultipliers */
+          AscensionMultipliers?: definitions["AscensionMultipliers"];
         };
         query: {
           /** Filtering Columns */
@@ -392,17 +377,8 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Build.id"];
-          created_at?: parameters["rowFilter.Build.created_at"];
-          name?: parameters["rowFilter.Build.name"];
-          description?: parameters["rowFilter.Build.description"];
-          owner?: parameters["rowFilter.Build.owner"];
-          weapon?: parameters["rowFilter.Build.weapon"];
-          flower?: parameters["rowFilter.Build.flower"];
-          feather?: parameters["rowFilter.Build.feather"];
-          sands?: parameters["rowFilter.Build.sands"];
-          goblet?: parameters["rowFilter.Build.goblet"];
-          circlet?: parameters["rowFilter.Build.circlet"];
+          ascension?: parameters["rowFilter.AscensionMultipliers.ascension"];
+          multiplier?: parameters["rowFilter.AscensionMultipliers.multiplier"];
         };
         header: {
           /** Preference */
@@ -417,21 +393,12 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Build.id"];
-          created_at?: parameters["rowFilter.Build.created_at"];
-          name?: parameters["rowFilter.Build.name"];
-          description?: parameters["rowFilter.Build.description"];
-          owner?: parameters["rowFilter.Build.owner"];
-          weapon?: parameters["rowFilter.Build.weapon"];
-          flower?: parameters["rowFilter.Build.flower"];
-          feather?: parameters["rowFilter.Build.feather"];
-          sands?: parameters["rowFilter.Build.sands"];
-          goblet?: parameters["rowFilter.Build.goblet"];
-          circlet?: parameters["rowFilter.Build.circlet"];
+          ascension?: parameters["rowFilter.AscensionMultipliers.ascension"];
+          multiplier?: parameters["rowFilter.AscensionMultipliers.multiplier"];
         };
         body: {
-          /** Build */
-          Build?: definitions["Build"];
+          /** AscensionMultipliers */
+          AscensionMultipliers?: definitions["AscensionMultipliers"];
         };
         header: {
           /** Preference */
@@ -444,20 +411,12 @@ export interface paths {
       };
     };
   };
-  "/Character": {
+  "/AscensionValueFactors": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Character.id"];
-          created_at?: parameters["rowFilter.Character.created_at"];
-          name?: parameters["rowFilter.Character.name"];
-          rarity?: parameters["rowFilter.Character.rarity"];
-          element?: parameters["rowFilter.Character.element"];
-          weapon_type?: parameters["rowFilter.Character.weapon_type"];
-          base_hp?: parameters["rowFilter.Character.base_hp"];
-          base_atk?: parameters["rowFilter.Character.base_atk"];
-          base_def?: parameters["rowFilter.Character.base_def"];
-          ascension_stat?: parameters["rowFilter.Character.ascension_stat"];
+          ascension?: parameters["rowFilter.AscensionValueFactors.ascension"];
+          factor?: parameters["rowFilter.AscensionValueFactors.factor"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -479,7 +438,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["Character"][];
+          schema: definitions["AscensionValueFactors"][];
         };
         /** Partial Content */
         206: unknown;
@@ -488,8 +447,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** Character */
-          Character?: definitions["Character"];
+          /** AscensionValueFactors */
+          AscensionValueFactors?: definitions["AscensionValueFactors"];
         };
         query: {
           /** Filtering Columns */
@@ -508,16 +467,8 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Character.id"];
-          created_at?: parameters["rowFilter.Character.created_at"];
-          name?: parameters["rowFilter.Character.name"];
-          rarity?: parameters["rowFilter.Character.rarity"];
-          element?: parameters["rowFilter.Character.element"];
-          weapon_type?: parameters["rowFilter.Character.weapon_type"];
-          base_hp?: parameters["rowFilter.Character.base_hp"];
-          base_atk?: parameters["rowFilter.Character.base_atk"];
-          base_def?: parameters["rowFilter.Character.base_def"];
-          ascension_stat?: parameters["rowFilter.Character.ascension_stat"];
+          ascension?: parameters["rowFilter.AscensionValueFactors.ascension"];
+          factor?: parameters["rowFilter.AscensionValueFactors.factor"];
         };
         header: {
           /** Preference */
@@ -532,20 +483,12 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Character.id"];
-          created_at?: parameters["rowFilter.Character.created_at"];
-          name?: parameters["rowFilter.Character.name"];
-          rarity?: parameters["rowFilter.Character.rarity"];
-          element?: parameters["rowFilter.Character.element"];
-          weapon_type?: parameters["rowFilter.Character.weapon_type"];
-          base_hp?: parameters["rowFilter.Character.base_hp"];
-          base_atk?: parameters["rowFilter.Character.base_atk"];
-          base_def?: parameters["rowFilter.Character.base_def"];
-          ascension_stat?: parameters["rowFilter.Character.ascension_stat"];
+          ascension?: parameters["rowFilter.AscensionValueFactors.ascension"];
+          factor?: parameters["rowFilter.AscensionValueFactors.factor"];
         };
         body: {
-          /** Character */
-          Character?: definitions["Character"];
+          /** AscensionValueFactors */
+          AscensionValueFactors?: definitions["AscensionValueFactors"];
         };
         header: {
           /** Preference */
@@ -558,17 +501,13 @@ export interface paths {
       };
     };
   };
-  "/CharacterCopy": {
+  "/AscensionValues": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.CharacterCopy.id"];
-          created_at?: parameters["rowFilter.CharacterCopy.created_at"];
-          owner?: parameters["rowFilter.CharacterCopy.owner"];
-          ascension?: parameters["rowFilter.CharacterCopy.ascension"];
-          level?: parameters["rowFilter.CharacterCopy.level"];
-          constellations?: parameters["rowFilter.CharacterCopy.constellations"];
-          default_build?: parameters["rowFilter.CharacterCopy.default_build"];
+          id?: parameters["rowFilter.AscensionValues.id"];
+          values?: parameters["rowFilter.AscensionValues.values"];
+          stat?: parameters["rowFilter.AscensionValues.stat"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -590,7 +529,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["CharacterCopy"][];
+          schema: definitions["AscensionValues"][];
         };
         /** Partial Content */
         206: unknown;
@@ -599,8 +538,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** CharacterCopy */
-          CharacterCopy?: definitions["CharacterCopy"];
+          /** AscensionValues */
+          AscensionValues?: definitions["AscensionValues"];
         };
         query: {
           /** Filtering Columns */
@@ -619,13 +558,9 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.CharacterCopy.id"];
-          created_at?: parameters["rowFilter.CharacterCopy.created_at"];
-          owner?: parameters["rowFilter.CharacterCopy.owner"];
-          ascension?: parameters["rowFilter.CharacterCopy.ascension"];
-          level?: parameters["rowFilter.CharacterCopy.level"];
-          constellations?: parameters["rowFilter.CharacterCopy.constellations"];
-          default_build?: parameters["rowFilter.CharacterCopy.default_build"];
+          id?: parameters["rowFilter.AscensionValues.id"];
+          values?: parameters["rowFilter.AscensionValues.values"];
+          stat?: parameters["rowFilter.AscensionValues.stat"];
         };
         header: {
           /** Preference */
@@ -640,17 +575,13 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.CharacterCopy.id"];
-          created_at?: parameters["rowFilter.CharacterCopy.created_at"];
-          owner?: parameters["rowFilter.CharacterCopy.owner"];
-          ascension?: parameters["rowFilter.CharacterCopy.ascension"];
-          level?: parameters["rowFilter.CharacterCopy.level"];
-          constellations?: parameters["rowFilter.CharacterCopy.constellations"];
-          default_build?: parameters["rowFilter.CharacterCopy.default_build"];
+          id?: parameters["rowFilter.AscensionValues.id"];
+          values?: parameters["rowFilter.AscensionValues.values"];
+          stat?: parameters["rowFilter.AscensionValues.stat"];
         };
         body: {
-          /** CharacterCopy */
-          CharacterCopy?: definitions["CharacterCopy"];
+          /** AscensionValues */
+          AscensionValues?: definitions["AscensionValues"];
         };
         header: {
           /** Preference */
@@ -663,14 +594,13 @@ export interface paths {
       };
     };
   };
-  "/Role": {
+  "/BaseStatValues": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Role.id"];
-          created_at?: parameters["rowFilter.Role.created_at"];
-          character?: parameters["rowFilter.Role.character"];
-          build?: parameters["rowFilter.Role.build"];
+          id?: parameters["rowFilter.BaseStatValues.id"];
+          stat?: parameters["rowFilter.BaseStatValues.stat"];
+          value?: parameters["rowFilter.BaseStatValues.value"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -692,7 +622,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["Role"][];
+          schema: definitions["BaseStatValues"][];
         };
         /** Partial Content */
         206: unknown;
@@ -701,8 +631,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** Role */
-          Role?: definitions["Role"];
+          /** BaseStatValues */
+          BaseStatValues?: definitions["BaseStatValues"];
         };
         query: {
           /** Filtering Columns */
@@ -721,10 +651,9 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Role.id"];
-          created_at?: parameters["rowFilter.Role.created_at"];
-          character?: parameters["rowFilter.Role.character"];
-          build?: parameters["rowFilter.Role.build"];
+          id?: parameters["rowFilter.BaseStatValues.id"];
+          stat?: parameters["rowFilter.BaseStatValues.stat"];
+          value?: parameters["rowFilter.BaseStatValues.value"];
         };
         header: {
           /** Preference */
@@ -739,14 +668,13 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Role.id"];
-          created_at?: parameters["rowFilter.Role.created_at"];
-          character?: parameters["rowFilter.Role.character"];
-          build?: parameters["rowFilter.Role.build"];
+          id?: parameters["rowFilter.BaseStatValues.id"];
+          stat?: parameters["rowFilter.BaseStatValues.stat"];
+          value?: parameters["rowFilter.BaseStatValues.value"];
         };
         body: {
-          /** Role */
-          Role?: definitions["Role"];
+          /** BaseStatValues */
+          BaseStatValues?: definitions["BaseStatValues"];
         };
         header: {
           /** Preference */
@@ -759,14 +687,20 @@ export interface paths {
       };
     };
   };
-  "/SetBonus": {
+  "/Builds": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.SetBonus.id"];
-          created_at?: parameters["rowFilter.SetBonus.created_at"];
-          description?: parameters["rowFilter.SetBonus.description"];
-          set?: parameters["rowFilter.SetBonus.set"];
+          id?: parameters["rowFilter.Builds.id"];
+          name?: parameters["rowFilter.Builds.name"];
+          description?: parameters["rowFilter.Builds.description"];
+          owner?: parameters["rowFilter.Builds.owner"];
+          weapon?: parameters["rowFilter.Builds.weapon"];
+          flower?: parameters["rowFilter.Builds.flower"];
+          feather?: parameters["rowFilter.Builds.feather"];
+          sands?: parameters["rowFilter.Builds.sands"];
+          goblet?: parameters["rowFilter.Builds.goblet"];
+          circlet?: parameters["rowFilter.Builds.circlet"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -788,7 +722,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["SetBonus"][];
+          schema: definitions["Builds"][];
         };
         /** Partial Content */
         206: unknown;
@@ -797,8 +731,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** SetBonus */
-          SetBonus?: definitions["SetBonus"];
+          /** Builds */
+          Builds?: definitions["Builds"];
         };
         query: {
           /** Filtering Columns */
@@ -817,10 +751,16 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.SetBonus.id"];
-          created_at?: parameters["rowFilter.SetBonus.created_at"];
-          description?: parameters["rowFilter.SetBonus.description"];
-          set?: parameters["rowFilter.SetBonus.set"];
+          id?: parameters["rowFilter.Builds.id"];
+          name?: parameters["rowFilter.Builds.name"];
+          description?: parameters["rowFilter.Builds.description"];
+          owner?: parameters["rowFilter.Builds.owner"];
+          weapon?: parameters["rowFilter.Builds.weapon"];
+          flower?: parameters["rowFilter.Builds.flower"];
+          feather?: parameters["rowFilter.Builds.feather"];
+          sands?: parameters["rowFilter.Builds.sands"];
+          goblet?: parameters["rowFilter.Builds.goblet"];
+          circlet?: parameters["rowFilter.Builds.circlet"];
         };
         header: {
           /** Preference */
@@ -835,14 +775,20 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.SetBonus.id"];
-          created_at?: parameters["rowFilter.SetBonus.created_at"];
-          description?: parameters["rowFilter.SetBonus.description"];
-          set?: parameters["rowFilter.SetBonus.set"];
+          id?: parameters["rowFilter.Builds.id"];
+          name?: parameters["rowFilter.Builds.name"];
+          description?: parameters["rowFilter.Builds.description"];
+          owner?: parameters["rowFilter.Builds.owner"];
+          weapon?: parameters["rowFilter.Builds.weapon"];
+          flower?: parameters["rowFilter.Builds.flower"];
+          feather?: parameters["rowFilter.Builds.feather"];
+          sands?: parameters["rowFilter.Builds.sands"];
+          goblet?: parameters["rowFilter.Builds.goblet"];
+          circlet?: parameters["rowFilter.Builds.circlet"];
         };
         body: {
-          /** SetBonus */
-          SetBonus?: definitions["SetBonus"];
+          /** Builds */
+          Builds?: definitions["Builds"];
         };
         header: {
           /** Preference */
@@ -855,14 +801,16 @@ export interface paths {
       };
     };
   };
-  "/Stat": {
+  "/CharacterCopies": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Stat.id"];
-          created_at?: parameters["rowFilter.Stat.created_at"];
-          stat?: parameters["rowFilter.Stat.stat"];
-          abbreviation?: parameters["rowFilter.Stat.abbreviation"];
+          id?: parameters["rowFilter.CharacterCopies.id"];
+          owner?: parameters["rowFilter.CharacterCopies.owner"];
+          ascension?: parameters["rowFilter.CharacterCopies.ascension"];
+          level?: parameters["rowFilter.CharacterCopies.level"];
+          constellations?: parameters["rowFilter.CharacterCopies.constellations"];
+          default_build?: parameters["rowFilter.CharacterCopies.default_build"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -884,7 +832,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["Stat"][];
+          schema: definitions["CharacterCopies"][];
         };
         /** Partial Content */
         206: unknown;
@@ -893,8 +841,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** Stat */
-          Stat?: definitions["Stat"];
+          /** CharacterCopies */
+          CharacterCopies?: definitions["CharacterCopies"];
         };
         query: {
           /** Filtering Columns */
@@ -913,10 +861,12 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Stat.id"];
-          created_at?: parameters["rowFilter.Stat.created_at"];
-          stat?: parameters["rowFilter.Stat.stat"];
-          abbreviation?: parameters["rowFilter.Stat.abbreviation"];
+          id?: parameters["rowFilter.CharacterCopies.id"];
+          owner?: parameters["rowFilter.CharacterCopies.owner"];
+          ascension?: parameters["rowFilter.CharacterCopies.ascension"];
+          level?: parameters["rowFilter.CharacterCopies.level"];
+          constellations?: parameters["rowFilter.CharacterCopies.constellations"];
+          default_build?: parameters["rowFilter.CharacterCopies.default_build"];
         };
         header: {
           /** Preference */
@@ -931,14 +881,16 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Stat.id"];
-          created_at?: parameters["rowFilter.Stat.created_at"];
-          stat?: parameters["rowFilter.Stat.stat"];
-          abbreviation?: parameters["rowFilter.Stat.abbreviation"];
+          id?: parameters["rowFilter.CharacterCopies.id"];
+          owner?: parameters["rowFilter.CharacterCopies.owner"];
+          ascension?: parameters["rowFilter.CharacterCopies.ascension"];
+          level?: parameters["rowFilter.CharacterCopies.level"];
+          constellations?: parameters["rowFilter.CharacterCopies.constellations"];
+          default_build?: parameters["rowFilter.CharacterCopies.default_build"];
         };
         body: {
-          /** Stat */
-          Stat?: definitions["Stat"];
+          /** CharacterCopies */
+          CharacterCopies?: definitions["CharacterCopies"];
         };
         header: {
           /** Preference */
@@ -951,17 +903,24 @@ export interface paths {
       };
     };
   };
-  "/StatValue": {
+  "/Characters": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.StatValue.id"];
-          created_at?: parameters["rowFilter.StatValue.created_at"];
-          stat?: parameters["rowFilter.StatValue.stat"];
-          description?: parameters["rowFilter.StatValue.description"];
-          level?: parameters["rowFilter.StatValue.level"];
-          value?: parameters["rowFilter.StatValue.value"];
-          ascension?: parameters["rowFilter.StatValue.ascension"];
+          id?: parameters["rowFilter.Characters.id"];
+          name?: parameters["rowFilter.Characters.name"];
+          rarity?: parameters["rowFilter.Characters.rarity"];
+          element?: parameters["rowFilter.Characters.element"];
+          weapon_type?: parameters["rowFilter.Characters.weapon_type"];
+          base_hp?: parameters["rowFilter.Characters.base_hp"];
+          base_atk?: parameters["rowFilter.Characters.base_atk"];
+          base_def?: parameters["rowFilter.Characters.base_def"];
+          ascension_base?: parameters["rowFilter.Characters.ascension_base"];
+          hp_ascension_value?: parameters["rowFilter.Characters.hp_ascension_value"];
+          atk_ascension_value?: parameters["rowFilter.Characters.atk_ascension_value"];
+          def_ascension_value?: parameters["rowFilter.Characters.def_ascension_value"];
+          level_multiplier?: parameters["rowFilter.Characters.level_multiplier"];
+          ascension_multiplier?: parameters["rowFilter.Characters.ascension_multiplier"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -983,7 +942,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["StatValue"][];
+          schema: definitions["Characters"][];
         };
         /** Partial Content */
         206: unknown;
@@ -992,8 +951,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** StatValue */
-          StatValue?: definitions["StatValue"];
+          /** Characters */
+          Characters?: definitions["Characters"];
         };
         query: {
           /** Filtering Columns */
@@ -1012,13 +971,20 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.StatValue.id"];
-          created_at?: parameters["rowFilter.StatValue.created_at"];
-          stat?: parameters["rowFilter.StatValue.stat"];
-          description?: parameters["rowFilter.StatValue.description"];
-          level?: parameters["rowFilter.StatValue.level"];
-          value?: parameters["rowFilter.StatValue.value"];
-          ascension?: parameters["rowFilter.StatValue.ascension"];
+          id?: parameters["rowFilter.Characters.id"];
+          name?: parameters["rowFilter.Characters.name"];
+          rarity?: parameters["rowFilter.Characters.rarity"];
+          element?: parameters["rowFilter.Characters.element"];
+          weapon_type?: parameters["rowFilter.Characters.weapon_type"];
+          base_hp?: parameters["rowFilter.Characters.base_hp"];
+          base_atk?: parameters["rowFilter.Characters.base_atk"];
+          base_def?: parameters["rowFilter.Characters.base_def"];
+          ascension_base?: parameters["rowFilter.Characters.ascension_base"];
+          hp_ascension_value?: parameters["rowFilter.Characters.hp_ascension_value"];
+          atk_ascension_value?: parameters["rowFilter.Characters.atk_ascension_value"];
+          def_ascension_value?: parameters["rowFilter.Characters.def_ascension_value"];
+          level_multiplier?: parameters["rowFilter.Characters.level_multiplier"];
+          ascension_multiplier?: parameters["rowFilter.Characters.ascension_multiplier"];
         };
         header: {
           /** Preference */
@@ -1033,17 +999,24 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.StatValue.id"];
-          created_at?: parameters["rowFilter.StatValue.created_at"];
-          stat?: parameters["rowFilter.StatValue.stat"];
-          description?: parameters["rowFilter.StatValue.description"];
-          level?: parameters["rowFilter.StatValue.level"];
-          value?: parameters["rowFilter.StatValue.value"];
-          ascension?: parameters["rowFilter.StatValue.ascension"];
+          id?: parameters["rowFilter.Characters.id"];
+          name?: parameters["rowFilter.Characters.name"];
+          rarity?: parameters["rowFilter.Characters.rarity"];
+          element?: parameters["rowFilter.Characters.element"];
+          weapon_type?: parameters["rowFilter.Characters.weapon_type"];
+          base_hp?: parameters["rowFilter.Characters.base_hp"];
+          base_atk?: parameters["rowFilter.Characters.base_atk"];
+          base_def?: parameters["rowFilter.Characters.base_def"];
+          ascension_base?: parameters["rowFilter.Characters.ascension_base"];
+          hp_ascension_value?: parameters["rowFilter.Characters.hp_ascension_value"];
+          atk_ascension_value?: parameters["rowFilter.Characters.atk_ascension_value"];
+          def_ascension_value?: parameters["rowFilter.Characters.def_ascension_value"];
+          level_multiplier?: parameters["rowFilter.Characters.level_multiplier"];
+          ascension_multiplier?: parameters["rowFilter.Characters.ascension_multiplier"];
         };
         body: {
-          /** StatValue */
-          StatValue?: definitions["StatValue"];
+          /** Characters */
+          Characters?: definitions["Characters"];
         };
         header: {
           /** Preference */
@@ -1056,19 +1029,14 @@ export interface paths {
       };
     };
   };
-  "/Team": {
+  "/LevelMultipliers": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Team.id"];
-          created_at?: parameters["rowFilter.Team.created_at"];
-          name?: parameters["rowFilter.Team.name"];
-          description?: parameters["rowFilter.Team.description"];
-          owner?: parameters["rowFilter.Team.owner"];
-          slot1?: parameters["rowFilter.Team.slot1"];
-          slot2?: parameters["rowFilter.Team.slot2"];
-          slot3?: parameters["rowFilter.Team.slot3"];
-          slot4?: parameters["rowFilter.Team.slot4"];
+          id?: parameters["rowFilter.LevelMultipliers.id"];
+          regression_factors?: parameters["rowFilter.LevelMultipliers.regression_factors"];
+          /** Description intended for admin use and distinction */
+          description?: parameters["rowFilter.LevelMultipliers.description"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -1090,7 +1058,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["Team"][];
+          schema: definitions["LevelMultipliers"][];
         };
         /** Partial Content */
         206: unknown;
@@ -1099,8 +1067,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** Team */
-          Team?: definitions["Team"];
+          /** LevelMultipliers */
+          LevelMultipliers?: definitions["LevelMultipliers"];
         };
         query: {
           /** Filtering Columns */
@@ -1119,15 +1087,10 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Team.id"];
-          created_at?: parameters["rowFilter.Team.created_at"];
-          name?: parameters["rowFilter.Team.name"];
-          description?: parameters["rowFilter.Team.description"];
-          owner?: parameters["rowFilter.Team.owner"];
-          slot1?: parameters["rowFilter.Team.slot1"];
-          slot2?: parameters["rowFilter.Team.slot2"];
-          slot3?: parameters["rowFilter.Team.slot3"];
-          slot4?: parameters["rowFilter.Team.slot4"];
+          id?: parameters["rowFilter.LevelMultipliers.id"];
+          regression_factors?: parameters["rowFilter.LevelMultipliers.regression_factors"];
+          /** Description intended for admin use and distinction */
+          description?: parameters["rowFilter.LevelMultipliers.description"];
         };
         header: {
           /** Preference */
@@ -1142,19 +1105,14 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Team.id"];
-          created_at?: parameters["rowFilter.Team.created_at"];
-          name?: parameters["rowFilter.Team.name"];
-          description?: parameters["rowFilter.Team.description"];
-          owner?: parameters["rowFilter.Team.owner"];
-          slot1?: parameters["rowFilter.Team.slot1"];
-          slot2?: parameters["rowFilter.Team.slot2"];
-          slot3?: parameters["rowFilter.Team.slot3"];
-          slot4?: parameters["rowFilter.Team.slot4"];
+          id?: parameters["rowFilter.LevelMultipliers.id"];
+          regression_factors?: parameters["rowFilter.LevelMultipliers.regression_factors"];
+          /** Description intended for admin use and distinction */
+          description?: parameters["rowFilter.LevelMultipliers.description"];
         };
         body: {
-          /** Team */
-          Team?: definitions["Team"];
+          /** LevelMultipliers */
+          LevelMultipliers?: definitions["LevelMultipliers"];
         };
         header: {
           /** Preference */
@@ -1167,17 +1125,13 @@ export interface paths {
       };
     };
   };
-  "/TeamPair": {
+  "/Roles": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.TeamPair.id"];
-          created_at?: parameters["rowFilter.TeamPair.created_at"];
-          name?: parameters["rowFilter.TeamPair.name"];
-          description?: parameters["rowFilter.TeamPair.description"];
-          owner?: parameters["rowFilter.TeamPair.owner"];
-          team1?: parameters["rowFilter.TeamPair.team1"];
-          team2?: parameters["rowFilter.TeamPair.team2"];
+          id?: parameters["rowFilter.Roles.id"];
+          character?: parameters["rowFilter.Roles.character"];
+          build?: parameters["rowFilter.Roles.build"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -1199,7 +1153,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["TeamPair"][];
+          schema: definitions["Roles"][];
         };
         /** Partial Content */
         206: unknown;
@@ -1208,8 +1162,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** TeamPair */
-          TeamPair?: definitions["TeamPair"];
+          /** Roles */
+          Roles?: definitions["Roles"];
         };
         query: {
           /** Filtering Columns */
@@ -1228,13 +1182,9 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.TeamPair.id"];
-          created_at?: parameters["rowFilter.TeamPair.created_at"];
-          name?: parameters["rowFilter.TeamPair.name"];
-          description?: parameters["rowFilter.TeamPair.description"];
-          owner?: parameters["rowFilter.TeamPair.owner"];
-          team1?: parameters["rowFilter.TeamPair.team1"];
-          team2?: parameters["rowFilter.TeamPair.team2"];
+          id?: parameters["rowFilter.Roles.id"];
+          character?: parameters["rowFilter.Roles.character"];
+          build?: parameters["rowFilter.Roles.build"];
         };
         header: {
           /** Preference */
@@ -1249,17 +1199,13 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.TeamPair.id"];
-          created_at?: parameters["rowFilter.TeamPair.created_at"];
-          name?: parameters["rowFilter.TeamPair.name"];
-          description?: parameters["rowFilter.TeamPair.description"];
-          owner?: parameters["rowFilter.TeamPair.owner"];
-          team1?: parameters["rowFilter.TeamPair.team1"];
-          team2?: parameters["rowFilter.TeamPair.team2"];
+          id?: parameters["rowFilter.Roles.id"];
+          character?: parameters["rowFilter.Roles.character"];
+          build?: parameters["rowFilter.Roles.build"];
         };
         body: {
-          /** TeamPair */
-          TeamPair?: definitions["TeamPair"];
+          /** Roles */
+          Roles?: definitions["Roles"];
         };
         header: {
           /** Preference */
@@ -1272,18 +1218,13 @@ export interface paths {
       };
     };
   };
-  "/Weapon": {
+  "/SetBonuses": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Weapon.id"];
-          created_at?: parameters["rowFilter.Weapon.created_at"];
-          name?: parameters["rowFilter.Weapon.name"];
-          description?: parameters["rowFilter.Weapon.description"];
-          rarity?: parameters["rowFilter.Weapon.rarity"];
-          type?: parameters["rowFilter.Weapon.type"];
-          base_atk?: parameters["rowFilter.Weapon.base_atk"];
-          secondary_stat?: parameters["rowFilter.Weapon.secondary_stat"];
+          id?: parameters["rowFilter.SetBonuses.id"];
+          description?: parameters["rowFilter.SetBonuses.description"];
+          set?: parameters["rowFilter.SetBonuses.set"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -1305,7 +1246,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["Weapon"][];
+          schema: definitions["SetBonuses"][];
         };
         /** Partial Content */
         206: unknown;
@@ -1314,8 +1255,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** Weapon */
-          Weapon?: definitions["Weapon"];
+          /** SetBonuses */
+          SetBonuses?: definitions["SetBonuses"];
         };
         query: {
           /** Filtering Columns */
@@ -1334,14 +1275,9 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Weapon.id"];
-          created_at?: parameters["rowFilter.Weapon.created_at"];
-          name?: parameters["rowFilter.Weapon.name"];
-          description?: parameters["rowFilter.Weapon.description"];
-          rarity?: parameters["rowFilter.Weapon.rarity"];
-          type?: parameters["rowFilter.Weapon.type"];
-          base_atk?: parameters["rowFilter.Weapon.base_atk"];
-          secondary_stat?: parameters["rowFilter.Weapon.secondary_stat"];
+          id?: parameters["rowFilter.SetBonuses.id"];
+          description?: parameters["rowFilter.SetBonuses.description"];
+          set?: parameters["rowFilter.SetBonuses.set"];
         };
         header: {
           /** Preference */
@@ -1356,18 +1292,13 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.Weapon.id"];
-          created_at?: parameters["rowFilter.Weapon.created_at"];
-          name?: parameters["rowFilter.Weapon.name"];
-          description?: parameters["rowFilter.Weapon.description"];
-          rarity?: parameters["rowFilter.Weapon.rarity"];
-          type?: parameters["rowFilter.Weapon.type"];
-          base_atk?: parameters["rowFilter.Weapon.base_atk"];
-          secondary_stat?: parameters["rowFilter.Weapon.secondary_stat"];
+          id?: parameters["rowFilter.SetBonuses.id"];
+          description?: parameters["rowFilter.SetBonuses.description"];
+          set?: parameters["rowFilter.SetBonuses.set"];
         };
         body: {
-          /** Weapon */
-          Weapon?: definitions["Weapon"];
+          /** SetBonuses */
+          SetBonuses?: definitions["SetBonuses"];
         };
         header: {
           /** Preference */
@@ -1380,17 +1311,13 @@ export interface paths {
       };
     };
   };
-  "/WeaponCopy": {
+  "/StatTypes": {
     get: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.WeaponCopy.id"];
-          created_at?: parameters["rowFilter.WeaponCopy.created_at"];
-          weapon_id?: parameters["rowFilter.WeaponCopy.weapon_id"];
-          level?: parameters["rowFilter.WeaponCopy.level"];
-          refinement?: parameters["rowFilter.WeaponCopy.refinement"];
-          owner?: parameters["rowFilter.WeaponCopy.owner"];
-          ascension?: parameters["rowFilter.WeaponCopy.ascension"];
+          id?: parameters["rowFilter.StatTypes.id"];
+          stat?: parameters["rowFilter.StatTypes.stat"];
+          abbreviation?: parameters["rowFilter.StatTypes.abbreviation"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -1412,7 +1339,7 @@ export interface paths {
       responses: {
         /** OK */
         200: {
-          schema: definitions["WeaponCopy"][];
+          schema: definitions["StatTypes"][];
         };
         /** Partial Content */
         206: unknown;
@@ -1421,8 +1348,8 @@ export interface paths {
     post: {
       parameters: {
         body: {
-          /** WeaponCopy */
-          WeaponCopy?: definitions["WeaponCopy"];
+          /** StatTypes */
+          StatTypes?: definitions["StatTypes"];
         };
         query: {
           /** Filtering Columns */
@@ -1441,13 +1368,9 @@ export interface paths {
     delete: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.WeaponCopy.id"];
-          created_at?: parameters["rowFilter.WeaponCopy.created_at"];
-          weapon_id?: parameters["rowFilter.WeaponCopy.weapon_id"];
-          level?: parameters["rowFilter.WeaponCopy.level"];
-          refinement?: parameters["rowFilter.WeaponCopy.refinement"];
-          owner?: parameters["rowFilter.WeaponCopy.owner"];
-          ascension?: parameters["rowFilter.WeaponCopy.ascension"];
+          id?: parameters["rowFilter.StatTypes.id"];
+          stat?: parameters["rowFilter.StatTypes.stat"];
+          abbreviation?: parameters["rowFilter.StatTypes.abbreviation"];
         };
         header: {
           /** Preference */
@@ -1462,17 +1385,541 @@ export interface paths {
     patch: {
       parameters: {
         query: {
-          id?: parameters["rowFilter.WeaponCopy.id"];
-          created_at?: parameters["rowFilter.WeaponCopy.created_at"];
-          weapon_id?: parameters["rowFilter.WeaponCopy.weapon_id"];
-          level?: parameters["rowFilter.WeaponCopy.level"];
-          refinement?: parameters["rowFilter.WeaponCopy.refinement"];
-          owner?: parameters["rowFilter.WeaponCopy.owner"];
-          ascension?: parameters["rowFilter.WeaponCopy.ascension"];
+          id?: parameters["rowFilter.StatTypes.id"];
+          stat?: parameters["rowFilter.StatTypes.stat"];
+          abbreviation?: parameters["rowFilter.StatTypes.abbreviation"];
         };
         body: {
-          /** WeaponCopy */
-          WeaponCopy?: definitions["WeaponCopy"];
+          /** StatTypes */
+          StatTypes?: definitions["StatTypes"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/StatValues": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.StatValues.id"];
+          stat?: parameters["rowFilter.StatValues.stat"];
+          description?: parameters["rowFilter.StatValues.description"];
+          level?: parameters["rowFilter.StatValues.level"];
+          value?: parameters["rowFilter.StatValues.value"];
+          ascension?: parameters["rowFilter.StatValues.ascension"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["StatValues"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** StatValues */
+          StatValues?: definitions["StatValues"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.StatValues.id"];
+          stat?: parameters["rowFilter.StatValues.stat"];
+          description?: parameters["rowFilter.StatValues.description"];
+          level?: parameters["rowFilter.StatValues.level"];
+          value?: parameters["rowFilter.StatValues.value"];
+          ascension?: parameters["rowFilter.StatValues.ascension"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.StatValues.id"];
+          stat?: parameters["rowFilter.StatValues.stat"];
+          description?: parameters["rowFilter.StatValues.description"];
+          level?: parameters["rowFilter.StatValues.level"];
+          value?: parameters["rowFilter.StatValues.value"];
+          ascension?: parameters["rowFilter.StatValues.ascension"];
+        };
+        body: {
+          /** StatValues */
+          StatValues?: definitions["StatValues"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/TeamPairs": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.TeamPairs.id"];
+          name?: parameters["rowFilter.TeamPairs.name"];
+          description?: parameters["rowFilter.TeamPairs.description"];
+          owner?: parameters["rowFilter.TeamPairs.owner"];
+          team1?: parameters["rowFilter.TeamPairs.team1"];
+          team2?: parameters["rowFilter.TeamPairs.team2"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["TeamPairs"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** TeamPairs */
+          TeamPairs?: definitions["TeamPairs"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.TeamPairs.id"];
+          name?: parameters["rowFilter.TeamPairs.name"];
+          description?: parameters["rowFilter.TeamPairs.description"];
+          owner?: parameters["rowFilter.TeamPairs.owner"];
+          team1?: parameters["rowFilter.TeamPairs.team1"];
+          team2?: parameters["rowFilter.TeamPairs.team2"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.TeamPairs.id"];
+          name?: parameters["rowFilter.TeamPairs.name"];
+          description?: parameters["rowFilter.TeamPairs.description"];
+          owner?: parameters["rowFilter.TeamPairs.owner"];
+          team1?: parameters["rowFilter.TeamPairs.team1"];
+          team2?: parameters["rowFilter.TeamPairs.team2"];
+        };
+        body: {
+          /** TeamPairs */
+          TeamPairs?: definitions["TeamPairs"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/Teams": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Teams.id"];
+          name?: parameters["rowFilter.Teams.name"];
+          description?: parameters["rowFilter.Teams.description"];
+          owner?: parameters["rowFilter.Teams.owner"];
+          slot1?: parameters["rowFilter.Teams.slot1"];
+          slot2?: parameters["rowFilter.Teams.slot2"];
+          slot3?: parameters["rowFilter.Teams.slot3"];
+          slot4?: parameters["rowFilter.Teams.slot4"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["Teams"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Teams */
+          Teams?: definitions["Teams"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Teams.id"];
+          name?: parameters["rowFilter.Teams.name"];
+          description?: parameters["rowFilter.Teams.description"];
+          owner?: parameters["rowFilter.Teams.owner"];
+          slot1?: parameters["rowFilter.Teams.slot1"];
+          slot2?: parameters["rowFilter.Teams.slot2"];
+          slot3?: parameters["rowFilter.Teams.slot3"];
+          slot4?: parameters["rowFilter.Teams.slot4"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Teams.id"];
+          name?: parameters["rowFilter.Teams.name"];
+          description?: parameters["rowFilter.Teams.description"];
+          owner?: parameters["rowFilter.Teams.owner"];
+          slot1?: parameters["rowFilter.Teams.slot1"];
+          slot2?: parameters["rowFilter.Teams.slot2"];
+          slot3?: parameters["rowFilter.Teams.slot3"];
+          slot4?: parameters["rowFilter.Teams.slot4"];
+        };
+        body: {
+          /** Teams */
+          Teams?: definitions["Teams"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/WeaponCopies": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.WeaponCopies.id"];
+          weapon_id?: parameters["rowFilter.WeaponCopies.weapon_id"];
+          level?: parameters["rowFilter.WeaponCopies.level"];
+          refinement?: parameters["rowFilter.WeaponCopies.refinement"];
+          owner?: parameters["rowFilter.WeaponCopies.owner"];
+          ascension?: parameters["rowFilter.WeaponCopies.ascension"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["WeaponCopies"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** WeaponCopies */
+          WeaponCopies?: definitions["WeaponCopies"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.WeaponCopies.id"];
+          weapon_id?: parameters["rowFilter.WeaponCopies.weapon_id"];
+          level?: parameters["rowFilter.WeaponCopies.level"];
+          refinement?: parameters["rowFilter.WeaponCopies.refinement"];
+          owner?: parameters["rowFilter.WeaponCopies.owner"];
+          ascension?: parameters["rowFilter.WeaponCopies.ascension"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.WeaponCopies.id"];
+          weapon_id?: parameters["rowFilter.WeaponCopies.weapon_id"];
+          level?: parameters["rowFilter.WeaponCopies.level"];
+          refinement?: parameters["rowFilter.WeaponCopies.refinement"];
+          owner?: parameters["rowFilter.WeaponCopies.owner"];
+          ascension?: parameters["rowFilter.WeaponCopies.ascension"];
+        };
+        body: {
+          /** WeaponCopies */
+          WeaponCopies?: definitions["WeaponCopies"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+  };
+  "/Weapons": {
+    get: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Weapons.id"];
+          name?: parameters["rowFilter.Weapons.name"];
+          description?: parameters["rowFilter.Weapons.description"];
+          rarity?: parameters["rowFilter.Weapons.rarity"];
+          type?: parameters["rowFilter.Weapons.type"];
+          base_atk?: parameters["rowFilter.Weapons.base_atk"];
+          atk_multiplier?: parameters["rowFilter.Weapons.atk_multiplier"];
+          atk_ascension?: parameters["rowFilter.Weapons.atk_ascension"];
+          ascension_base?: parameters["rowFilter.Weapons.ascension_base"];
+          ascension_level_multiplier?: parameters["rowFilter.Weapons.ascension_level_multiplier"];
+          /** Filtering Columns */
+          select?: parameters["select"];
+          /** Ordering */
+          order?: parameters["order"];
+          /** Limiting and Pagination */
+          offset?: parameters["offset"];
+          /** Limiting and Pagination */
+          limit?: parameters["limit"];
+        };
+        header: {
+          /** Limiting and Pagination */
+          Range?: parameters["range"];
+          /** Limiting and Pagination */
+          "Range-Unit"?: parameters["rangeUnit"];
+          /** Preference */
+          Prefer?: parameters["preferCount"];
+        };
+      };
+      responses: {
+        /** OK */
+        200: {
+          schema: definitions["Weapons"][];
+        };
+        /** Partial Content */
+        206: unknown;
+      };
+    };
+    post: {
+      parameters: {
+        body: {
+          /** Weapons */
+          Weapons?: definitions["Weapons"];
+        };
+        query: {
+          /** Filtering Columns */
+          select?: parameters["select"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** Created */
+        201: unknown;
+      };
+    };
+    delete: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Weapons.id"];
+          name?: parameters["rowFilter.Weapons.name"];
+          description?: parameters["rowFilter.Weapons.description"];
+          rarity?: parameters["rowFilter.Weapons.rarity"];
+          type?: parameters["rowFilter.Weapons.type"];
+          base_atk?: parameters["rowFilter.Weapons.base_atk"];
+          atk_multiplier?: parameters["rowFilter.Weapons.atk_multiplier"];
+          atk_ascension?: parameters["rowFilter.Weapons.atk_ascension"];
+          ascension_base?: parameters["rowFilter.Weapons.ascension_base"];
+          ascension_level_multiplier?: parameters["rowFilter.Weapons.ascension_level_multiplier"];
+        };
+        header: {
+          /** Preference */
+          Prefer?: parameters["preferReturn"];
+        };
+      };
+      responses: {
+        /** No Content */
+        204: never;
+      };
+    };
+    patch: {
+      parameters: {
+        query: {
+          id?: parameters["rowFilter.Weapons.id"];
+          name?: parameters["rowFilter.Weapons.name"];
+          description?: parameters["rowFilter.Weapons.description"];
+          rarity?: parameters["rowFilter.Weapons.rarity"];
+          type?: parameters["rowFilter.Weapons.type"];
+          base_atk?: parameters["rowFilter.Weapons.base_atk"];
+          atk_multiplier?: parameters["rowFilter.Weapons.atk_multiplier"];
+          atk_ascension?: parameters["rowFilter.Weapons.atk_ascension"];
+          ascension_base?: parameters["rowFilter.Weapons.ascension_base"];
+          ascension_level_multiplier?: parameters["rowFilter.Weapons.ascension_level_multiplier"];
+        };
+        body: {
+          /** Weapons */
+          Weapons?: definitions["Weapons"];
         };
         header: {
           /** Preference */
@@ -1488,236 +1935,306 @@ export interface paths {
 }
 
 export interface definitions {
-  /** Data on individual artifacts */
-  Artifact: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: number;
-    created_at?: string;
-    /**
-     * Note:
-     * This is a Foreign Key to `ArtifactSet.id`.<fk table='ArtifactSet' column='id'/>
-     */
-    set: number;
-    rarity: number;
-    type: "flower" | "feather" | "sands" | "goblet" | "circlet";
-  };
   /** Actual instance of an artifact */
-  ArtifactCopy: {
+  ArtifactCopies: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
     owner: string;
-    created_at?: string;
     /**
      * Note:
-     * This is a Foreign Key to `Artifact.id`.<fk table='Artifact' column='id'/>
+     * This is a Foreign Key to `Artifacts.id`.<fk table='Artifacts' column='id'/>
      */
     artifact_id: number;
     level: number;
     /**
      * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
+     * This is a Foreign Key to `StatValues.id`.<fk table='StatValues' column='id'/>
      */
     main_stat: number;
     /**
      * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
+     * This is a Foreign Key to `StatValues.id`.<fk table='StatValues' column='id'/>
      */
     sub_stat1?: number;
     /**
      * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
+     * This is a Foreign Key to `StatValues.id`.<fk table='StatValues' column='id'/>
      */
     sub_stat2?: number;
     /**
      * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
+     * This is a Foreign Key to `StatValues.id`.<fk table='StatValues' column='id'/>
      */
     sub_stat3?: number;
     /**
      * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
+     * This is a Foreign Key to `StatValues.id`.<fk table='StatValues' column='id'/>
      */
     sub_stat4?: number;
   };
   /** Artifact sets in game */
-  ArtifactSet: {
+  ArtifactSets: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     name: string;
     /**
      * Note:
-     * This is a Foreign Key to `SetBonus.id`.<fk table='SetBonus' column='id'/>
+     * This is a Foreign Key to `SetBonuses.id`.<fk table='SetBonuses' column='id'/>
      */
     one_piece_bonus?: number;
     /**
      * Note:
-     * This is a Foreign Key to `SetBonus.id`.<fk table='SetBonus' column='id'/>
+     * This is a Foreign Key to `SetBonuses.id`.<fk table='SetBonuses' column='id'/>
      */
     two_piece_bonus?: number;
     /**
      * Note:
-     * This is a Foreign Key to `SetBonus.id`.<fk table='SetBonus' column='id'/>
+     * This is a Foreign Key to `SetBonuses.id`.<fk table='SetBonuses' column='id'/>
      */
     four_piece_bonus?: number;
   };
-  Build: {
+  /** Data on individual artifacts */
+  Artifacts: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
     created_at?: string;
+    /**
+     * Note:
+     * This is a Foreign Key to `ArtifactSets.id`.<fk table='ArtifactSets' column='id'/>
+     */
+    set: number;
+    rarity: number;
+    type: "flower" | "feather" | "sands" | "goblet" | "circlet";
+  };
+  AscensionMultipliers: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    ascension: number;
+    multiplier: number;
+  };
+  /** Used by characters to calculate the true value of their ascension value */
+  AscensionValueFactors: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    ascension: number;
+    factor: number;
+  };
+  /** If `value.length == 1` (i.e., for character), multiply `value[0]` by `AscensionFactor[characterCopy.ascension]` for true value. Else (i.e., for weapon), true value is `value[weaponCopy.weapon.rarity - 1]`. */
+  AscensionValues: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    values: unknown[];
+    /**
+     * Note:
+     * This is a Foreign Key to `StatTypes.id`.<fk table='StatTypes' column='id'/>
+     */
+    stat: number;
+  };
+  BaseStatValues: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `StatTypes.id`.<fk table='StatTypes' column='id'/>
+     */
+    stat: number;
+    value: number;
+  };
+  Builds: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
     name: string;
     description?: string;
     owner: string;
     /**
      * Note:
-     * This is a Foreign Key to `WeaponCopy.id`.<fk table='WeaponCopy' column='id'/>
+     * This is a Foreign Key to `WeaponCopies.id`.<fk table='WeaponCopies' column='id'/>
      */
     weapon: number;
     /**
      * Note:
-     * This is a Foreign Key to `ArtifactCopy.id`.<fk table='ArtifactCopy' column='id'/>
+     * This is a Foreign Key to `ArtifactCopies.id`.<fk table='ArtifactCopies' column='id'/>
      */
     flower?: number;
     /**
      * Note:
-     * This is a Foreign Key to `ArtifactCopy.id`.<fk table='ArtifactCopy' column='id'/>
+     * This is a Foreign Key to `ArtifactCopies.id`.<fk table='ArtifactCopies' column='id'/>
      */
     feather?: number;
     /**
      * Note:
-     * This is a Foreign Key to `ArtifactCopy.id`.<fk table='ArtifactCopy' column='id'/>
+     * This is a Foreign Key to `ArtifactCopies.id`.<fk table='ArtifactCopies' column='id'/>
      */
     sands?: number;
     /**
      * Note:
-     * This is a Foreign Key to `ArtifactCopy.id`.<fk table='ArtifactCopy' column='id'/>
+     * This is a Foreign Key to `ArtifactCopies.id`.<fk table='ArtifactCopies' column='id'/>
      */
     goblet?: number;
     /**
      * Note:
-     * This is a Foreign Key to `ArtifactCopy.id`.<fk table='ArtifactCopy' column='id'/>
+     * This is a Foreign Key to `ArtifactCopies.id`.<fk table='ArtifactCopies' column='id'/>
      */
     circlet?: number;
   };
-  /** Character data */
-  Character: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: number;
-    created_at?: string;
-    name: string;
-    rarity: number;
-    element: "Anemo" | "Geo" | "Electro" | "Hydro" | "Cryo" | "Pyro" | "Dendro";
-    weapon_type: "Sword" | "Claymore" | "Spear" | "Catalyst" | "Bow";
-    /**
-     * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
-     */
-    base_hp: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
-     */
-    base_atk: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
-     */
-    base_def: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
-     */
-    ascension_stat: number;
-  };
   /** Actual instance of a character */
-  CharacterCopy: {
+  CharacterCopies: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     owner: string;
     ascension: number;
     level: number;
     constellations: number;
     /**
      * Note:
-     * This is a Foreign Key to `Build.id`.<fk table='Build' column='id'/>
+     * This is a Foreign Key to `Builds.id`.<fk table='Builds' column='id'/>
      */
     default_build?: number;
   };
-  /** Pairs characters with builds in a team */
-  Role: {
+  /** Character data */
+  Characters: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
+    name: string;
+    rarity: number;
+    element: "Anemo" | "Geo" | "Electro" | "Hydro" | "Cryo" | "Pyro" | "Dendro";
+    weapon_type: "Sword" | "Claymore" | "Spear" | "Catalyst" | "Bow";
     /**
      * Note:
-     * This is a Foreign Key to `CharacterCopy.id`.<fk table='CharacterCopy' column='id'/>
+     * This is a Foreign Key to `BaseStatValues.id`.<fk table='BaseStatValues' column='id'/>
+     */
+    base_hp: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `BaseStatValues.id`.<fk table='BaseStatValues' column='id'/>
+     */
+    base_atk: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `BaseStatValues.id`.<fk table='BaseStatValues' column='id'/>
+     */
+    base_def: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `BaseStatValues.id`.<fk table='BaseStatValues' column='id'/>
+     */
+    ascension_base: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `AscensionValues.id`.<fk table='AscensionValues' column='id'/>
+     */
+    hp_ascension_value: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `AscensionValues.id`.<fk table='AscensionValues' column='id'/>
+     */
+    atk_ascension_value: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `AscensionValues.id`.<fk table='AscensionValues' column='id'/>
+     */
+    def_ascension_value: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `LevelMultipliers.id`.<fk table='LevelMultipliers' column='id'/>
+     */
+    level_multiplier: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `AscensionMultipliers.ascension`.<fk table='AscensionMultipliers' column='ascension'/>
+     */
+    ascension_multiplier: number;
+  };
+  LevelMultipliers: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    regression_factors: unknown[];
+    /** Description intended for admin use and distinction */
+    description?: string;
+  };
+  /** Pairs characters with builds in a team */
+  Roles: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `CharacterCopies.id`.<fk table='CharacterCopies' column='id'/>
      */
     character: number;
     /**
      * Note:
-     * This is a Foreign Key to `Build.id`.<fk table='Build' column='id'/>
+     * This is a Foreign Key to `Builds.id`.<fk table='Builds' column='id'/>
      */
     build?: number;
   };
   /** Artifact set bonus descriptions */
-  SetBonus: {
+  SetBonuses: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     description: string;
     /**
      * Note:
-     * This is a Foreign Key to `ArtifactSet.id`.<fk table='ArtifactSet' column='id'/>
+     * This is a Foreign Key to `ArtifactSets.id`.<fk table='ArtifactSets' column='id'/>
      */
     set: number;
   };
   /** The types of stats a character/weapon/artifact can have */
-  Stat: {
+  StatTypes: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     stat: string;
     abbreviation: string;
   };
   /** Actual stat values of characters/weapons/artifacts */
-  StatValue: {
+  StatValues: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     /**
      * Note:
-     * This is a Foreign Key to `Stat.id`.<fk table='Stat' column='id'/>
+     * This is a Foreign Key to `StatTypes.id`.<fk table='StatTypes' column='id'/>
      */
     stat: number;
     description?: string;
@@ -1725,100 +2242,111 @@ export interface definitions {
     value: unknown[];
     ascension?: unknown[];
   };
-  /** Collection of roles */
-  Team: {
-    /**
-     * Note:
-     * This is a Primary Key.<pk/>
-     */
-    id: number;
-    created_at?: string;
-    name: string;
-    description?: string;
-    owner: string;
-    /**
-     * Note:
-     * This is a Foreign Key to `Role.id`.<fk table='Role' column='id'/>
-     */
-    slot1?: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `Role.id`.<fk table='Role' column='id'/>
-     */
-    slot2?: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `Role.id`.<fk table='Role' column='id'/>
-     */
-    slot3?: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `Role.id`.<fk table='Role' column='id'/>
-     */
-    slot4?: number;
-  };
   /** For spiral and events */
-  TeamPair: {
+  TeamPairs: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     name: string;
     description?: string;
     owner: string;
     /**
      * Note:
-     * This is a Foreign Key to `Team.id`.<fk table='Team' column='id'/>
+     * This is a Foreign Key to `Teams.id`.<fk table='Teams' column='id'/>
      */
     team1: number;
     /**
      * Note:
-     * This is a Foreign Key to `Team.id`.<fk table='Team' column='id'/>
+     * This is a Foreign Key to `Teams.id`.<fk table='Teams' column='id'/>
      */
     team2: number;
   };
-  /** Data on weapons */
-  Weapon: {
+  /** Collection of roles */
+  Teams: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     name: string;
-    description: string;
-    rarity: number;
-    type: "Sword" | "Claymore" | "Spear" | "Catalyst" | "Bow";
+    description?: string;
+    owner: string;
     /**
      * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
+     * This is a Foreign Key to `Roles.id`.<fk table='Roles' column='id'/>
      */
-    base_atk: number;
+    slot1?: number;
     /**
      * Note:
-     * This is a Foreign Key to `StatValue.id`.<fk table='StatValue' column='id'/>
+     * This is a Foreign Key to `Roles.id`.<fk table='Roles' column='id'/>
      */
-    secondary_stat: number;
+    slot2?: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `Roles.id`.<fk table='Roles' column='id'/>
+     */
+    slot3?: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `Roles.id`.<fk table='Roles' column='id'/>
+     */
+    slot4?: number;
   };
   /** Actual instance of a weapon */
-  WeaponCopy: {
+  WeaponCopies: {
     /**
      * Note:
      * This is a Primary Key.<pk/>
      */
     id: number;
-    created_at?: string;
     /**
      * Note:
-     * This is a Foreign Key to `Weapon.id`.<fk table='Weapon' column='id'/>
+     * This is a Foreign Key to `Weapons.id`.<fk table='Weapons' column='id'/>
      */
     weapon_id: number;
     level: number;
     refinement: number;
     owner: string;
     ascension: number;
+  };
+  /** Data on weapons */
+  Weapons: {
+    /**
+     * Note:
+     * This is a Primary Key.<pk/>
+     */
+    id: number;
+    name: string;
+    description: string;
+    rarity: number;
+    type: "Sword" | "Claymore" | "Spear" | "Catalyst" | "Bow";
+    /**
+     * Note:
+     * This is a Foreign Key to `BaseStatValues.id`.<fk table='BaseStatValues' column='id'/>
+     */
+    base_atk: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `LevelMultipliers.id`.<fk table='LevelMultipliers' column='id'/>
+     */
+    atk_multiplier: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `AscensionValues.id`.<fk table='AscensionValues' column='id'/>
+     */
+    atk_ascension: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `BaseStatValues.id`.<fk table='BaseStatValues' column='id'/>
+     */
+    ascension_base: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `LevelMultipliers.id`.<fk table='LevelMultipliers' column='id'/>
+     */
+    ascension_level_multiplier: number;
   };
 }
 
@@ -1843,133 +2371,152 @@ export interface parameters {
   offset: string;
   /** Limiting and Pagination */
   limit: string;
-  /** Artifact */
-  "body.Artifact": definitions["Artifact"];
-  "rowFilter.Artifact.id": string;
-  "rowFilter.Artifact.created_at": string;
-  "rowFilter.Artifact.set": string;
-  "rowFilter.Artifact.rarity": string;
-  "rowFilter.Artifact.type": string;
-  /** ArtifactCopy */
-  "body.ArtifactCopy": definitions["ArtifactCopy"];
-  "rowFilter.ArtifactCopy.id": string;
-  "rowFilter.ArtifactCopy.owner": string;
-  "rowFilter.ArtifactCopy.created_at": string;
-  "rowFilter.ArtifactCopy.artifact_id": string;
-  "rowFilter.ArtifactCopy.level": string;
-  "rowFilter.ArtifactCopy.main_stat": string;
-  "rowFilter.ArtifactCopy.sub_stat1": string;
-  "rowFilter.ArtifactCopy.sub_stat2": string;
-  "rowFilter.ArtifactCopy.sub_stat3": string;
-  "rowFilter.ArtifactCopy.sub_stat4": string;
-  /** ArtifactSet */
-  "body.ArtifactSet": definitions["ArtifactSet"];
-  "rowFilter.ArtifactSet.id": string;
-  "rowFilter.ArtifactSet.created_at": string;
-  "rowFilter.ArtifactSet.name": string;
-  "rowFilter.ArtifactSet.one_piece_bonus": string;
-  "rowFilter.ArtifactSet.two_piece_bonus": string;
-  "rowFilter.ArtifactSet.four_piece_bonus": string;
-  /** Build */
-  "body.Build": definitions["Build"];
-  "rowFilter.Build.id": string;
-  "rowFilter.Build.created_at": string;
-  "rowFilter.Build.name": string;
-  "rowFilter.Build.description": string;
-  "rowFilter.Build.owner": string;
-  "rowFilter.Build.weapon": string;
-  "rowFilter.Build.flower": string;
-  "rowFilter.Build.feather": string;
-  "rowFilter.Build.sands": string;
-  "rowFilter.Build.goblet": string;
-  "rowFilter.Build.circlet": string;
-  /** Character */
-  "body.Character": definitions["Character"];
-  "rowFilter.Character.id": string;
-  "rowFilter.Character.created_at": string;
-  "rowFilter.Character.name": string;
-  "rowFilter.Character.rarity": string;
-  "rowFilter.Character.element": string;
-  "rowFilter.Character.weapon_type": string;
-  "rowFilter.Character.base_hp": string;
-  "rowFilter.Character.base_atk": string;
-  "rowFilter.Character.base_def": string;
-  "rowFilter.Character.ascension_stat": string;
-  /** CharacterCopy */
-  "body.CharacterCopy": definitions["CharacterCopy"];
-  "rowFilter.CharacterCopy.id": string;
-  "rowFilter.CharacterCopy.created_at": string;
-  "rowFilter.CharacterCopy.owner": string;
-  "rowFilter.CharacterCopy.ascension": string;
-  "rowFilter.CharacterCopy.level": string;
-  "rowFilter.CharacterCopy.constellations": string;
-  "rowFilter.CharacterCopy.default_build": string;
-  /** Role */
-  "body.Role": definitions["Role"];
-  "rowFilter.Role.id": string;
-  "rowFilter.Role.created_at": string;
-  "rowFilter.Role.character": string;
-  "rowFilter.Role.build": string;
-  /** SetBonus */
-  "body.SetBonus": definitions["SetBonus"];
-  "rowFilter.SetBonus.id": string;
-  "rowFilter.SetBonus.created_at": string;
-  "rowFilter.SetBonus.description": string;
-  "rowFilter.SetBonus.set": string;
-  /** Stat */
-  "body.Stat": definitions["Stat"];
-  "rowFilter.Stat.id": string;
-  "rowFilter.Stat.created_at": string;
-  "rowFilter.Stat.stat": string;
-  "rowFilter.Stat.abbreviation": string;
-  /** StatValue */
-  "body.StatValue": definitions["StatValue"];
-  "rowFilter.StatValue.id": string;
-  "rowFilter.StatValue.created_at": string;
-  "rowFilter.StatValue.stat": string;
-  "rowFilter.StatValue.description": string;
-  "rowFilter.StatValue.level": string;
-  "rowFilter.StatValue.value": string;
-  "rowFilter.StatValue.ascension": string;
-  /** Team */
-  "body.Team": definitions["Team"];
-  "rowFilter.Team.id": string;
-  "rowFilter.Team.created_at": string;
-  "rowFilter.Team.name": string;
-  "rowFilter.Team.description": string;
-  "rowFilter.Team.owner": string;
-  "rowFilter.Team.slot1": string;
-  "rowFilter.Team.slot2": string;
-  "rowFilter.Team.slot3": string;
-  "rowFilter.Team.slot4": string;
-  /** TeamPair */
-  "body.TeamPair": definitions["TeamPair"];
-  "rowFilter.TeamPair.id": string;
-  "rowFilter.TeamPair.created_at": string;
-  "rowFilter.TeamPair.name": string;
-  "rowFilter.TeamPair.description": string;
-  "rowFilter.TeamPair.owner": string;
-  "rowFilter.TeamPair.team1": string;
-  "rowFilter.TeamPair.team2": string;
-  /** Weapon */
-  "body.Weapon": definitions["Weapon"];
-  "rowFilter.Weapon.id": string;
-  "rowFilter.Weapon.created_at": string;
-  "rowFilter.Weapon.name": string;
-  "rowFilter.Weapon.description": string;
-  "rowFilter.Weapon.rarity": string;
-  "rowFilter.Weapon.type": string;
-  "rowFilter.Weapon.base_atk": string;
-  "rowFilter.Weapon.secondary_stat": string;
-  /** WeaponCopy */
-  "body.WeaponCopy": definitions["WeaponCopy"];
-  "rowFilter.WeaponCopy.id": string;
-  "rowFilter.WeaponCopy.created_at": string;
-  "rowFilter.WeaponCopy.weapon_id": string;
-  "rowFilter.WeaponCopy.level": string;
-  "rowFilter.WeaponCopy.refinement": string;
-  "rowFilter.WeaponCopy.owner": string;
-  "rowFilter.WeaponCopy.ascension": string;
+  /** ArtifactCopies */
+  "body.ArtifactCopies": definitions["ArtifactCopies"];
+  "rowFilter.ArtifactCopies.id": string;
+  "rowFilter.ArtifactCopies.owner": string;
+  "rowFilter.ArtifactCopies.artifact_id": string;
+  "rowFilter.ArtifactCopies.level": string;
+  "rowFilter.ArtifactCopies.main_stat": string;
+  "rowFilter.ArtifactCopies.sub_stat1": string;
+  "rowFilter.ArtifactCopies.sub_stat2": string;
+  "rowFilter.ArtifactCopies.sub_stat3": string;
+  "rowFilter.ArtifactCopies.sub_stat4": string;
+  /** ArtifactSets */
+  "body.ArtifactSets": definitions["ArtifactSets"];
+  "rowFilter.ArtifactSets.id": string;
+  "rowFilter.ArtifactSets.name": string;
+  "rowFilter.ArtifactSets.one_piece_bonus": string;
+  "rowFilter.ArtifactSets.two_piece_bonus": string;
+  "rowFilter.ArtifactSets.four_piece_bonus": string;
+  /** Artifacts */
+  "body.Artifacts": definitions["Artifacts"];
+  "rowFilter.Artifacts.id": string;
+  "rowFilter.Artifacts.created_at": string;
+  "rowFilter.Artifacts.set": string;
+  "rowFilter.Artifacts.rarity": string;
+  "rowFilter.Artifacts.type": string;
+  /** AscensionMultipliers */
+  "body.AscensionMultipliers": definitions["AscensionMultipliers"];
+  "rowFilter.AscensionMultipliers.ascension": string;
+  "rowFilter.AscensionMultipliers.multiplier": string;
+  /** AscensionValueFactors */
+  "body.AscensionValueFactors": definitions["AscensionValueFactors"];
+  "rowFilter.AscensionValueFactors.ascension": string;
+  "rowFilter.AscensionValueFactors.factor": string;
+  /** AscensionValues */
+  "body.AscensionValues": definitions["AscensionValues"];
+  "rowFilter.AscensionValues.id": string;
+  "rowFilter.AscensionValues.values": string;
+  "rowFilter.AscensionValues.stat": string;
+  /** BaseStatValues */
+  "body.BaseStatValues": definitions["BaseStatValues"];
+  "rowFilter.BaseStatValues.id": string;
+  "rowFilter.BaseStatValues.stat": string;
+  "rowFilter.BaseStatValues.value": string;
+  /** Builds */
+  "body.Builds": definitions["Builds"];
+  "rowFilter.Builds.id": string;
+  "rowFilter.Builds.name": string;
+  "rowFilter.Builds.description": string;
+  "rowFilter.Builds.owner": string;
+  "rowFilter.Builds.weapon": string;
+  "rowFilter.Builds.flower": string;
+  "rowFilter.Builds.feather": string;
+  "rowFilter.Builds.sands": string;
+  "rowFilter.Builds.goblet": string;
+  "rowFilter.Builds.circlet": string;
+  /** CharacterCopies */
+  "body.CharacterCopies": definitions["CharacterCopies"];
+  "rowFilter.CharacterCopies.id": string;
+  "rowFilter.CharacterCopies.owner": string;
+  "rowFilter.CharacterCopies.ascension": string;
+  "rowFilter.CharacterCopies.level": string;
+  "rowFilter.CharacterCopies.constellations": string;
+  "rowFilter.CharacterCopies.default_build": string;
+  /** Characters */
+  "body.Characters": definitions["Characters"];
+  "rowFilter.Characters.id": string;
+  "rowFilter.Characters.name": string;
+  "rowFilter.Characters.rarity": string;
+  "rowFilter.Characters.element": string;
+  "rowFilter.Characters.weapon_type": string;
+  "rowFilter.Characters.base_hp": string;
+  "rowFilter.Characters.base_atk": string;
+  "rowFilter.Characters.base_def": string;
+  "rowFilter.Characters.ascension_base": string;
+  "rowFilter.Characters.hp_ascension_value": string;
+  "rowFilter.Characters.atk_ascension_value": string;
+  "rowFilter.Characters.def_ascension_value": string;
+  "rowFilter.Characters.level_multiplier": string;
+  "rowFilter.Characters.ascension_multiplier": string;
+  /** LevelMultipliers */
+  "body.LevelMultipliers": definitions["LevelMultipliers"];
+  "rowFilter.LevelMultipliers.id": string;
+  "rowFilter.LevelMultipliers.regression_factors": string;
+  /** Description intended for admin use and distinction */
+  "rowFilter.LevelMultipliers.description": string;
+  /** Roles */
+  "body.Roles": definitions["Roles"];
+  "rowFilter.Roles.id": string;
+  "rowFilter.Roles.character": string;
+  "rowFilter.Roles.build": string;
+  /** SetBonuses */
+  "body.SetBonuses": definitions["SetBonuses"];
+  "rowFilter.SetBonuses.id": string;
+  "rowFilter.SetBonuses.description": string;
+  "rowFilter.SetBonuses.set": string;
+  /** StatTypes */
+  "body.StatTypes": definitions["StatTypes"];
+  "rowFilter.StatTypes.id": string;
+  "rowFilter.StatTypes.stat": string;
+  "rowFilter.StatTypes.abbreviation": string;
+  /** StatValues */
+  "body.StatValues": definitions["StatValues"];
+  "rowFilter.StatValues.id": string;
+  "rowFilter.StatValues.stat": string;
+  "rowFilter.StatValues.description": string;
+  "rowFilter.StatValues.level": string;
+  "rowFilter.StatValues.value": string;
+  "rowFilter.StatValues.ascension": string;
+  /** TeamPairs */
+  "body.TeamPairs": definitions["TeamPairs"];
+  "rowFilter.TeamPairs.id": string;
+  "rowFilter.TeamPairs.name": string;
+  "rowFilter.TeamPairs.description": string;
+  "rowFilter.TeamPairs.owner": string;
+  "rowFilter.TeamPairs.team1": string;
+  "rowFilter.TeamPairs.team2": string;
+  /** Teams */
+  "body.Teams": definitions["Teams"];
+  "rowFilter.Teams.id": string;
+  "rowFilter.Teams.name": string;
+  "rowFilter.Teams.description": string;
+  "rowFilter.Teams.owner": string;
+  "rowFilter.Teams.slot1": string;
+  "rowFilter.Teams.slot2": string;
+  "rowFilter.Teams.slot3": string;
+  "rowFilter.Teams.slot4": string;
+  /** WeaponCopies */
+  "body.WeaponCopies": definitions["WeaponCopies"];
+  "rowFilter.WeaponCopies.id": string;
+  "rowFilter.WeaponCopies.weapon_id": string;
+  "rowFilter.WeaponCopies.level": string;
+  "rowFilter.WeaponCopies.refinement": string;
+  "rowFilter.WeaponCopies.owner": string;
+  "rowFilter.WeaponCopies.ascension": string;
+  /** Weapons */
+  "body.Weapons": definitions["Weapons"];
+  "rowFilter.Weapons.id": string;
+  "rowFilter.Weapons.name": string;
+  "rowFilter.Weapons.description": string;
+  "rowFilter.Weapons.rarity": string;
+  "rowFilter.Weapons.type": string;
+  "rowFilter.Weapons.base_atk": string;
+  "rowFilter.Weapons.atk_multiplier": string;
+  "rowFilter.Weapons.atk_ascension": string;
+  "rowFilter.Weapons.ascension_base": string;
+  "rowFilter.Weapons.ascension_level_multiplier": string;
 }
 
 export interface operations {}
