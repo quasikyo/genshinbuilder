@@ -12,7 +12,8 @@ import {
 	NTable,
 } from 'naive-ui';
 import { Plus } from '@vicons/fa';
-import { store, characterStatEntries } from '../../store';
+import { store } from '../../store';
+import { calculateCharacterAll } from '../../store/calculators';
 import { Character } from '../../types';
 
 const isDrawerActive = ref(false);
@@ -32,7 +33,7 @@ function openDrawer() {
 
 function displayDetails(character: Character) {
 	modalDetails.title = character.name;
-	modalDetails.data = characterStatEntries(character);
+	modalDetails.data = calculateCharacterAll(character);
 	doShowModal.value = true;
 } // displayDetails
 </script>
