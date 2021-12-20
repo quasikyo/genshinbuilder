@@ -5,19 +5,20 @@ import { initStore, store } from '../store';
 
 import { DashboardComponents } from '../components/dashboard';
 
-const isStoreLoaded = ref(true); // DEGBUG (set to false when done)
+const isStoreLoaded = ref(false); // DEGBUG (set to false when done)
 watchEffect(() => {
-	// Simple check to see if loaded
-	// isStoreLoaded.value = 'Characters' in store; // DEBUG
+	isStoreLoaded.value = 'Characters' in store; // DEBUG
 });
 
 initStore();
 </script>
 
 <template>
-	<n-spin v-if="!isStoreLoaded" :size="300"></n-spin>
+	<n-space v-if="!isStoreLoaded" justify="center">
+		<n-spin :size="300"></n-spin>
+	</n-space>
 
-	<n-tabs type="line" justify-content="space-evenly" size="large">
+	<n-tabs v-else type="line" justify-content="space-evenly" size="large">
 		<n-tab-pane v-for="component in DashboardComponents" :name="component.name">
 			<n-space justify="center">
 				<component :is="component"></component>
@@ -25,6 +26,3 @@ initStore();
 		</n-tab-pane>
 	</n-tabs>
 </template>
-
-<style>
-</style>

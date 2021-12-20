@@ -1,6 +1,6 @@
 import { reactive } from 'vue';
 import { supabase } from '../supabase';
-import { Store } from '../types';
+import { Ascension, Character, CharacterCopy, Constellations, Store } from '../types';
 import { notify } from './subscribers';
 import { QUERIES } from '../supabase/queries';
 
@@ -41,3 +41,22 @@ export function initStore() {
 	isStoreInitialized = true;
 	notify('ready', store);
 } // initStore
+
+export function createCharacterCopy(character: Character, options: {
+	ascension?: Ascension, level?: number, constellations?: Constellations,
+}): CharacterCopy {
+	const { ascension, level, constellations } = options;
+	const copy: CharacterCopy = {
+		ascension: ascension || 0,
+		level: level || 1,
+		constellations: constellations || 0,
+		copy_of: character,
+	};
+
+	store.CharacterCopies.push(copy);
+	return copy;
+} // createCharacterCopy
+
+export function doesCopyExist(character: Character): boolean {
+	return !!store.CharacterCopies.find(copy => copy.copy_of.name === character.name);
+} // doesCopyExist

@@ -29,10 +29,11 @@ export type Character = {
 };
 
 export type Build = { name: string, description: string, };
+export type Constellations = 0 | 1 | 2 | 3 | 4 | 5 | 6 ;
 export type CharacterCopy = {
 	ascension: Ascension,
 	level: number,
-	constellations: 0 | 1 | 2 | 3 | 4 | 5 | 6,
+	constellations: Constellations,
 	default_build?: Build,
 	copy_of: Character,
 };
