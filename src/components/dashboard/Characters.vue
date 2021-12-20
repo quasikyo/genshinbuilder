@@ -13,7 +13,7 @@ import {
 } from 'naive-ui';
 import { Plus } from '@vicons/fa';
 import { store, characterStatEntries } from '../../store';
-import { definitions } from '../../supabase';
+import { Character } from '../../types';
 
 const isDrawerActive = ref(false);
 const doShowModal = ref(false);
@@ -30,7 +30,7 @@ function openDrawer() {
 	isDrawerActive.value = true;
 } // openDrawer
 
-function displayDetails(character: definitions['Character']) {
+function displayDetails(character: Character) {
 	modalDetails.title = character.name;
 	modalDetails.data = characterStatEntries(character);
 	doShowModal.value = true;
@@ -76,7 +76,7 @@ export default {
 		<n-drawer-content :closable="true" title="Characters">
 			search and filter controls here
 			<n-card
-				v-for="character in store.Character"
+				v-for="character in store.Characters"
 				:title="character.name"
 				style="margin-top: 1rem;"
 				class="no-content"
@@ -92,10 +92,10 @@ export default {
 		</n-drawer-content>
 	</n-drawer>
 
-	<n-empty
+	<!-- <n-empty
 		v-if="!store.CharacterCopy || store.CharacterCopy.length === 0"
 		description="No characters yet."
 		size="huge"
 		class="center"
-	></n-empty>
+	></n-empty> -->
 </template>

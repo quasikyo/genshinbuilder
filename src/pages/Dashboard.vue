@@ -8,7 +8,7 @@ import { DashboardComponents } from '../components/dashboard';
 const isStoreLoaded = ref(true); // DEGBUG (set to false when done)
 watchEffect(() => {
 	// Simple check to see if loaded
-	// isStoreLoaded.value = 'Character' in store; // DEBUG
+	// isStoreLoaded.value = 'Characters' in store; // DEBUG
 });
 
 initStore();

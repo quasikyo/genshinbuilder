@@ -1,72 +1,36 @@
 export const QUERIES = [
-	// {
-	// 	table: 'Artifact',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'ArtifactCopy',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'ArtifactSet',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'Build',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
 	{
-		table: 'Character',
-		query: '*',
-		isLoaded: false,
-	},
-	// {
-	// 	table: 'CharacterCopy',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'Role',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'SetBonus',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	{
-		table: 'Stat',
-		query: '*',
-		isLoaded: false,
+		table: 'Characters',
+		select: `
+			id, name, rarity, element, weapon_type,
+			base_hp (
+				value,
+				stat (abbreviation)
+			),
+			hp_ascension_value (values),
+			base_atk (
+				value,
+				stat (abbreviation)
+			),
+			atk_ascension_value (values),
+			base_def (
+				value,
+				stat (abbreviation)
+			),
+			def_ascension_value (values),
+			level_multiplier (regression_factors),
+			ascension_base (
+				value,
+				stat (abbreviation)
+			)
+		`,
 	},
 	{
-		table: 'StatValue',
-		query: '*',
-		isLoaded: false,
+		table: 'AscensionValueFactors',
+		select: 'ascension, factor'
 	},
 	// {
-	// 	table: 'Team',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'TeamPair',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'Weapon',
-	// 	query: '*',
-	// 	isLoaded: false,
-	// },
-	// {
-	// 	table: 'WeaponCopy',
-	// 	query: '*',
-	// 	isLoaded: false,
+	// 	table: 'AscensionMultipliers',
+	// 	select: 'ascension, multiplier'
 	// },
 ];
