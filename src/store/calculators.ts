@@ -3,6 +3,7 @@ import {
 	Ascension,
 	AscensionValue,
 	Character,
+	CharacterCopy,
 	LevelMultiplier,
 	StatValue
 } from '../types';
@@ -111,3 +112,20 @@ export function calculateCharacterAll(character: Character) {
 
 	return entries;
 } // calculateCharacterAll
+
+export function calculateCharacterCopyStats(copy: CharacterCopy) {
+	return {
+		...calculateCharacterStats(
+			[copy.copy_of.base_hp, copy.copy_of.base_atk, copy.copy_of.base_def],
+			copy.level, copy.copy_of.level_multiplier, copy.ascension,
+			[
+				copy.copy_of.hp_ascension_value,
+				copy.copy_of.atk_ascension_value,
+				copy.copy_of.def_ascension_value
+			]
+		),
+		...calculateCharacterAscensionStat(
+			copy.copy_of.ascension_base, copy.ascension
+		),
+	};
+} // calculateCharacterCopyStats

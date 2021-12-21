@@ -811,6 +811,7 @@ export interface paths {
           level?: parameters["rowFilter.CharacterCopies.level"];
           constellations?: parameters["rowFilter.CharacterCopies.constellations"];
           default_build?: parameters["rowFilter.CharacterCopies.default_build"];
+          copy_of?: parameters["rowFilter.CharacterCopies.copy_of"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -867,6 +868,7 @@ export interface paths {
           level?: parameters["rowFilter.CharacterCopies.level"];
           constellations?: parameters["rowFilter.CharacterCopies.constellations"];
           default_build?: parameters["rowFilter.CharacterCopies.default_build"];
+          copy_of?: parameters["rowFilter.CharacterCopies.copy_of"];
         };
         header: {
           /** Preference */
@@ -887,6 +889,7 @@ export interface paths {
           level?: parameters["rowFilter.CharacterCopies.level"];
           constellations?: parameters["rowFilter.CharacterCopies.constellations"];
           default_build?: parameters["rowFilter.CharacterCopies.default_build"];
+          copy_of?: parameters["rowFilter.CharacterCopies.copy_of"];
         };
         body: {
           /** CharacterCopies */
@@ -920,7 +923,6 @@ export interface paths {
           atk_ascension_value?: parameters["rowFilter.Characters.atk_ascension_value"];
           def_ascension_value?: parameters["rowFilter.Characters.def_ascension_value"];
           level_multiplier?: parameters["rowFilter.Characters.level_multiplier"];
-          ascension_multiplier?: parameters["rowFilter.Characters.ascension_multiplier"];
           /** Filtering Columns */
           select?: parameters["select"];
           /** Ordering */
@@ -984,7 +986,6 @@ export interface paths {
           atk_ascension_value?: parameters["rowFilter.Characters.atk_ascension_value"];
           def_ascension_value?: parameters["rowFilter.Characters.def_ascension_value"];
           level_multiplier?: parameters["rowFilter.Characters.level_multiplier"];
-          ascension_multiplier?: parameters["rowFilter.Characters.ascension_multiplier"];
         };
         header: {
           /** Preference */
@@ -1012,7 +1013,6 @@ export interface paths {
           atk_ascension_value?: parameters["rowFilter.Characters.atk_ascension_value"];
           def_ascension_value?: parameters["rowFilter.Characters.def_ascension_value"];
           level_multiplier?: parameters["rowFilter.Characters.level_multiplier"];
-          ascension_multiplier?: parameters["rowFilter.Characters.ascension_multiplier"];
         };
         body: {
           /** Characters */
@@ -2115,6 +2115,11 @@ export interface definitions {
      * This is a Foreign Key to `Builds.id`.<fk table='Builds' column='id'/>
      */
     default_build?: number;
+    /**
+     * Note:
+     * This is a Foreign Key to `Characters.id`.<fk table='Characters' column='id'/>
+     */
+    copy_of: number;
   };
   /** Character data */
   Characters: {
@@ -2167,11 +2172,6 @@ export interface definitions {
      * This is a Foreign Key to `LevelMultipliers.id`.<fk table='LevelMultipliers' column='id'/>
      */
     level_multiplier: number;
-    /**
-     * Note:
-     * This is a Foreign Key to `AscensionMultipliers.ascension`.<fk table='AscensionMultipliers' column='ascension'/>
-     */
-    ascension_multiplier: number;
   };
   LevelMultipliers: {
     /**
@@ -2434,6 +2434,7 @@ export interface parameters {
   "rowFilter.CharacterCopies.level": string;
   "rowFilter.CharacterCopies.constellations": string;
   "rowFilter.CharacterCopies.default_build": string;
+  "rowFilter.CharacterCopies.copy_of": string;
   /** Characters */
   "body.Characters": definitions["Characters"];
   "rowFilter.Characters.id": string;
@@ -2449,7 +2450,6 @@ export interface parameters {
   "rowFilter.Characters.atk_ascension_value": string;
   "rowFilter.Characters.def_ascension_value": string;
   "rowFilter.Characters.level_multiplier": string;
-  "rowFilter.Characters.ascension_multiplier": string;
   /** LevelMultipliers */
   "body.LevelMultipliers": definitions["LevelMultipliers"];
   "rowFilter.LevelMultipliers.id": string;

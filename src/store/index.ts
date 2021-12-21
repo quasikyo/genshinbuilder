@@ -1,8 +1,14 @@
 import { reactive } from 'vue';
+import { PostgrestError } from '@supabase/supabase-js';
 import { supabase } from '../supabase';
-import { Ascension, Character, CharacterCopy, Constellations, Store } from '../types';
+import {
+	Store,
+	Character,
+	CharacterCopy,
+} from '../types';
 import { notify } from './subscribers';
 import { QUERIES } from '../supabase/queries';
+import { definitions } from '../supabase/types';
 
 let isStoreInitialized = false;
 // @ts-ignore the properties are loaded dynamically
@@ -36,25 +42,32 @@ export function initStore() {
 
 		error ? console.error(error) : Object.assign(store, { [table]: data });
 	}));
-	console.log(store);
 
 	isStoreInitialized = true;
 	notify('ready', store);
 } // initStore
 
-export function createCharacterCopy(character: Character, options: {
-	ascension?: Ascension, level?: number, constellations?: Constellations,
-}): CharacterCopy {
-	const { ascension, level, constellations } = options;
-	const copy: CharacterCopy = {
-		ascension: ascension || 0,
-		level: level || 1,
-		constellations: constellations || 0,
-		copy_of: character,
+// Ideas to make this generic
+// Create a function base that takes in the copy, toDbConverter, table
+export async function addCharacterCopy(copy: CharacterCopy): Promise<PostgrestError | null> {
+	const copyAsDbEntry: definitions['CharacterCopies'] = {
+		// @ts-ignore
+		owner: supabase.auth.user()?.id,
+		ascension: copy.ascension,
+		level: copy.level,
+		constellations: copy.constellations,
+		copy_of: copy.copy_of.id,
 	};
 
-	store.CharacterCopies.push(copy);
-	return copy;
+	const { error } = await supabase
+		.from<definitions['CharacterCopies']>('CharacterCopies')
+		.insert([copyAsDbEntry]);
+
+	if (!error) {
+		store.CharacterCopies.push(copy);
+	} // if
+
+	return error;
 } // createCharacterCopy
 
 export function doesCopyExist(character: Character): boolean {
