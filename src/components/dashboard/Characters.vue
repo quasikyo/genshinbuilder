@@ -12,12 +12,16 @@ import {
 	NForm, NFormItem,
 } from 'naive-ui';
 
+import { Character, CharacterCopy } from '../../types';
+
 import { store } from '../../store';
 import { characterManager } from '../../store/managers';
-import { calculateCharacterAll, calculateCharacterCopyStats } from '../../store/calculators';
-import { Character, CharacterCopy } from '../../types';
-import CopiesDisplay from './displays/CopiesDisplay.vue';
-import EditCharacterCopy from './displays/EditCharacterCopy.vue';
+import { calculateCharacterAll } from '../../store/calculators';
+
+import ItemsDisplay from './displays/ItemsDisplay.vue';
+import CharacterCopyInputs from './inputs/CharacterCopyInputs.vue';
+
+import { alertUser } from '../util';
 
 const isDrawerActive = ref(false);
 function openDrawer() {
@@ -70,7 +74,7 @@ async function addCopyAndCloseModal() {
 	isAddingCopy.value = false;
 
 	doShowCopyCreationModal.value = false;
-	if (error) { message.error(error.message); } // if
+	alertUser(message, error, 'Add');
 } // addCopyAndCloseModal
 </script>
 
@@ -129,7 +133,7 @@ export default {
 	>
 		<n-space justify="center">
 			<n-form :model="copyInputs" size="large">
-				<edit-character-copy :copy="copyInputs"></edit-character-copy>
+				<character-copy-inputs :copy="copyInputs"></character-copy-inputs>
 				<n-form-item>
 					<n-space justify="end" style="width: 100%;">
 						<n-button @click="addCopyAndCloseModal" :loading="isAddingCopy" type="primary">Create</n-button>
@@ -140,5 +144,5 @@ export default {
 	</n-modal>
 
 	<!-- Owned copies -->
-	<copies-display :data="store.CharacterCopies" :calculator="calculateCharacterCopyStats" :onAddClicked="openDrawer"></copies-display>
+	<items-display :data="store.CharacterCopies" :onAddClicked="openDrawer"></items-display>
 </template>

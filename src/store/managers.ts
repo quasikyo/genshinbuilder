@@ -14,7 +14,7 @@ import { Character, CharacterCopy } from '../types';
  *
  * @template T The query type to manage.
  */
-abstract class Manager<T> {
+export abstract class Manager<T> {
 	/**
 	 * Converts the data queried to the actual db schema.
 	 * @param data
@@ -38,6 +38,8 @@ abstract class Manager<T> {
 	 * @param data
 	 */
 	abstract delete(data: T): Promise<PostgrestError | null>;
+
+	abstract save(data: T): Promise<PostgrestError | null>;
 } // Manager
 
 class CharacterManager extends Manager<CharacterCopy> {
@@ -87,6 +89,17 @@ class CharacterManager extends Manager<CharacterCopy> {
 
 		return error;
 	} // delete
+
+	override async save(data: CharacterCopy) {
+		const { error } = await supabase
+			.from<definitions['CharacterCopies']>('CharacterCopies')
+			.update(this.storeToDb(data)).match({
+				owner: supabase.auth.user()?.id,
+				copy_of: data.copy_of.id,
+			});
+
+		return error;
+	} // save
 } // CharacterManager
 
 export const characterManager = new CharacterManager();
