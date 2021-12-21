@@ -4,19 +4,20 @@ import {
 	useMessage,
 	NSpace,
 	NButton,
-	NIcon,
 	NDrawer,
 	NDrawerContent,
 	NCard,
 	NModal,
 	NDataTable,
-	NForm, NFormItem, NInputNumber,
-	NGrid, NGi
+	NForm, NFormItem,
 } from 'naive-ui';
-import { Plus } from '@vicons/fa';
-import { store, addCharacterCopy, doesCopyExist } from '../../store';
+
+import { store } from '../../store';
+import { characterManager } from '../../store/managers';
 import { calculateCharacterAll, calculateCharacterCopyStats } from '../../store/calculators';
 import { Character, CharacterCopy } from '../../types';
+import CopiesDisplay from './displays/CopiesDisplay.vue';
+import EditCharacterCopy from './displays/EditCharacterCopy.vue';
 
 const isDrawerActive = ref(false);
 function openDrawer() {
@@ -65,8 +66,9 @@ const isAddingCopy = ref(false);
 const message = useMessage();
 async function addCopyAndCloseModal() {
 	isAddingCopy.value = true;
-	const error = await addCharacterCopy({ ...copyInputs.value }); // cause fuck you
+	const error = await characterManager.add({ ...copyInputs.value });
 	isAddingCopy.value = false;
+
 	doShowCopyCreationModal.value = false;
 	if (error) { message.error(error.message); } // if
 } // addCopyAndCloseModal
@@ -96,7 +98,7 @@ export default {
 						<n-button
 							type="primary"
 							@click="promptCopyFields(character)"
-							:disabled="doesCopyExist(character)"
+							:disabled="characterManager.doesCopyExist(character)"
 						>Add</n-button>
 					</n-space>
 				</template>
@@ -118,7 +120,7 @@ export default {
 		></n-data-table>
 	</n-modal>
 
-	<!-- Copy creation form -->
+	<!-- Copy creation -->
 	<n-modal
 		v-model:show="doShowCopyCreationModal"
 		preset="card"
@@ -127,15 +129,7 @@ export default {
 	>
 		<n-space justify="center">
 			<n-form :model="copyInputs" size="large">
-				<n-form-item label="Level" path="level">
-					<n-input-number v-model:value="copyInputs.level" :min="1" :max="90"></n-input-number>
-				</n-form-item>
-				<n-form-item label="Ascension" path="ascension">
-					<n-input-number v-model:value="copyInputs.ascension" :min="0" :max="6"></n-input-number>
-				</n-form-item>
-				<n-form-item label="Constellations" path="constellations">
-					<n-input-number v-model:value="copyInputs.constellations" :min="0" :max="6"></n-input-number>
-				</n-form-item>
+				<edit-character-copy :copy="copyInputs"></edit-character-copy>
 				<n-form-item>
 					<n-space justify="end" style="width: 100%;">
 						<n-button @click="addCopyAndCloseModal" :loading="isAddingCopy" type="primary">Create</n-button>
@@ -146,34 +140,5 @@ export default {
 	</n-modal>
 
 	<!-- Owned copies -->
-	<n-grid responsive="screen" cols="xs:1 s:2 m:3 l:4 xl:5" :x-gap="12" :y-gap="12">
-		<n-gi v-for="copy in store.CharacterCopies">
-			<n-card :title="copy.copy_of.name">
-				<n-form-item label="Level" path="level">
-					<n-input-number v-model:value="copy.level" :min="1" :max="90"></n-input-number>
-				</n-form-item>
-				<n-form-item label="Ascension" path="ascension">
-					<n-input-number v-model:value="copy.ascension" :min="0" :max="6"></n-input-number>
-				</n-form-item>
-				<n-form-item label="Constellations" path="constellations">
-					<n-input-number v-model:value="copy.constellations" :min="0" :max="6"></n-input-number>
-				</n-form-item>
-				<pre>{{ JSON.stringify(calculateCharacterCopyStats(copy), null, 2) }}</pre>
-			</n-card>
-		</n-gi>
-
-		<n-gi suffix>
-			<n-button
-				size="large"
-				ghost
-				type="primary"
-				@click="openDrawer"
-				style="width: 100%; height: 100%;"
-			>
-				<n-icon>
-					<plus></plus>
-				</n-icon>
-			</n-button>
-		</n-gi>
-	</n-grid>
+	<copies-display :data="store.CharacterCopies" :calculator="calculateCharacterCopyStats" :onAddClicked="openDrawer"></copies-display>
 </template>
