@@ -1,7 +1,6 @@
 import { reactive } from 'vue';
 import { supabase } from '../supabase';
 import { Store } from '../types';
-import { notify } from './subscribers';
 import { QUERIES } from '../supabase/queries';
 
 let isStoreInitialized = false;
@@ -19,7 +18,6 @@ export function initStore() {
 		throw new Error('Unathenticated request to DB.');
 	} else if (isStoreInitialized) {
 		// Only init the store once
-		notify('ready', store);
 		return;
 	} // if
 
@@ -38,5 +36,4 @@ export function initStore() {
 	}));
 
 	isStoreInitialized = true;
-	notify('ready', store);
 } // initStore
