@@ -8,7 +8,7 @@ defineProps<{ data: any[], onAddClicked: () => void }>();
 </script>
 
 <template>
-	<n-grid responsive="screen" cols="xs:1 s:2 m:3 l:4 xl:5" :x-gap="12" :y-gap="12">
+	<n-grid responsive="screen" cols="xs:1 s:1 m:2 l:3 xl:4" :x-gap="12" :y-gap="12">
 		<n-gi v-for="entry in data">
 			<!-- Dynamically determine which display to use -->
 			<character-copy-display :copy="entry"></character-copy-display>
@@ -16,12 +16,15 @@ defineProps<{ data: any[], onAddClicked: () => void }>();
 
 		<n-gi suffix>
 			<n-button
-				size="large" type="primary" ghost
+				size="large" type="primary" icon-placement="right" ghost
 				@click="onAddClicked" style="width: 100%; height: 100%;"
 			>
-				<n-icon>
-					<plus></plus>
-				</n-icon>
+				Add New
+				<template #icon>
+					<n-icon>
+						<plus></plus>
+					</n-icon>
+				</template>
 			</n-button>
 		</n-gi>
 	</n-grid>

@@ -55,6 +55,7 @@ export function calculateCharacterStats(
 		ascensionValues: AscensionValue[],
 	): {} {
 		const calculatedStats = { Level: level };
+		ascension = ascension || 0;
 		baseStats.forEach((stat, i) => {
 			Object.assign(calculatedStats, {
 				[stat.stat.abbreviation]: (stat.value
@@ -73,6 +74,7 @@ export function calculateCharacterStats(
  * @returns `{ [statAbbreviation]: number }`
  */
 export function calculateCharacterAscensionStat(baseStat: StatValue, ascension: number): {} {
+	ascension = ascension || 0;
 	return {
 		[baseStat.stat.abbreviation]: baseStat.value
 			* store.AscensionMultipliers[ascension].multiplier

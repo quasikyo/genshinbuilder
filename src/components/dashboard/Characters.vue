@@ -86,7 +86,7 @@ export default {
 
 <template>
 	<!-- Characters to choose from -->
-	<n-drawer v-model:show="isDrawerActive" placement="left" width="33%">
+	<n-drawer v-model:show="isDrawerActive" placement="left" width="33%" style="min-width: 375px;">
 		<n-drawer-content :closable="true" title="Characters">
 			search and filter controls here
 			<n-card
@@ -110,14 +110,15 @@ export default {
 		</n-drawer-content>
 	</n-drawer>
 
-	<!-- Specific stats for a character -->
+	<!-- Stats for a specific character -->
 	<n-modal
 		v-model:show="doShowStatsModal"
 		preset="card"
 		:title="modalDetails.title + '\'s Base Stats'"
-		style="width: 45%;"
+		style="width: 45%; min-width: 450px;"
 	>
 		<n-data-table
+			striped
 			:columns="modalDetails.tableColumns"
 			:data="modalDetails.tableRows"
 			:pagination="{ pageSize: 10 }"
@@ -136,7 +137,7 @@ export default {
 				<character-copy-inputs :copy="copyInputs"></character-copy-inputs>
 				<n-form-item>
 					<n-space justify="end" style="width: 100%;">
-						<n-button @click="addCopyAndCloseModal" :loading="isAddingCopy" type="primary">Create</n-button>
+						<n-button type="primary" @click="addCopyAndCloseModal" :loading="isAddingCopy" :disabled="isAddingCopy">Create</n-button>
 					</n-space>
 				</n-form-item>
 			</n-form>
