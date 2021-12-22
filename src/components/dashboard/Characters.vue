@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
 import {
-	useMessage,
 	NSpace,
 	NButton,
 	NDrawer,
@@ -21,7 +20,7 @@ import { calculateCharacterAll } from '../../store/calculators';
 import ItemsDisplay from './displays/ItemsDisplay.vue';
 import CharacterCopyInputs from './inputs/CharacterCopyInputs.vue';
 
-import { alertUser } from '../util';
+import AsyncButton from '../AsyncButton.vue';
 
 const isDrawerActive = ref(false);
 function openDrawer() {
@@ -68,14 +67,10 @@ function promptCopyFields(character: Character) {
 } // promptCopyFields
 
 const isAddingCopy = ref(false);
-const message = useMessage();
 async function addCopyAndCloseModal() {
-	isAddingCopy.value = true;
 	const error = await characterManager.add({ ...copyInputs.value });
-	isAddingCopy.value = false;
-
-	doShowCopyCreationModal.value = false;
-	alertUser(message, error, 'Add');
+	doShowCopyCreationModal.value = !!error;
+	return error;
 } // addCopyAndCloseModal
 </script>
 
@@ -138,7 +133,12 @@ export default {
 				<character-copy-inputs :copy="copyInputs"></character-copy-inputs>
 				<n-form-item>
 					<n-space justify="end" style="width: 100%;">
-						<n-button type="primary" @click="addCopyAndCloseModal" :loading="isAddingCopy" :disabled="isAddingCopy">Create</n-button>
+						<async-button
+							type="primary"
+							:operation="addCopyAndCloseModal"
+							operationName="Create"
+							v-model:status="isAddingCopy"
+						></async-button>
 					</n-space>
 				</n-form-item>
 			</n-form>

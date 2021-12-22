@@ -1,33 +1,12 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { NCard, NButton, NSpace, NIcon, useMessage } from 'naive-ui';
+import { NCard, NSpace, NIcon, useMessage } from 'naive-ui';
 import { TrashAlt, Save } from '@vicons/fa';
 import { Manager } from '../../../store/managers';
-import { alertUser } from '../../util';
+import AsyncButton from '../../AsyncButton.vue';
 
-const props = defineProps<{
-	title: string,
-	item: any,
-	manager: Manager<any, any>
-}>();
-
-const message = useMessage();
+defineProps<{ title: string, item: any, manager: Manager<any, any> }>();
 const isUpdating = ref(false);
-async function handleDelete(data: any) {
-	isUpdating.value = true;
-	const error = await props.manager.delete(data);
-	isUpdating.value = false;
-
-	alertUser(message, error, 'Deletion');
-} // deleteCharacterCopy
-
-async function handleSave(data: any) {
-	isUpdating.value = true;
-	const error = await props.manager.save(data);
-	isUpdating.value = false;
-
-	alertUser(message, error, 'Save');
-} // handleDelete
 </script>
 
 <template>
@@ -36,12 +15,12 @@ async function handleSave(data: any) {
 		<slot name="item-values"></slot>
 		<template #action>
 			<n-space justify="end" style="width: 100%;">
-				<n-button type="error" @click="handleDelete(item)" :loading="isUpdating" :disabled="isUpdating">
+				<async-button type="error" :operation="() => manager.delete(item)" operation-name="Deletion" v-model:status="isUpdating">
 					<n-icon><trash-alt></trash-alt></n-icon>
-				</n-button>
-				<n-button type="info" @click="handleSave(item)" :loading="isUpdating" :disabled="isUpdating">
+				</async-button>
+				<async-button type="info" :operation="() => manager.save(item)" operation-name="Save" v-model:status="isUpdating">
 					<n-icon><save></save></n-icon>
-				</n-button>
+				</async-button>
 			</n-space>
 		</template>
 	</n-card>
