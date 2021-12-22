@@ -5,7 +5,8 @@ import {
 	Character,
 	CharacterCopy,
 	LevelMultiplier,
-	StatValue
+	StatValue,
+	Weapon
 } from '../types';
 
 /**
@@ -131,3 +132,34 @@ export function calculateCharacterCopyStats(copy: CharacterCopy) {
 		),
 	};
 } // calculateCharacterCopyStats
+
+function calculateWeaponStats(
+	baseAtk: StatValue,
+	level: number,
+	multiplier: LevelMultiplier,
+	ascension: Ascension,
+	atkAscension: AscensionValue
+): {} {
+	ascension = ascension || 0;
+	return {
+		Level: level,
+		[baseAtk.stat.abbreviation]: (baseAtk.value
+			* regress(level, multiplier.regression_factors)
+			+ atkAscension.values[ascension]).toFixed(2)
+	};
+} // calculateWeaponStats
+
+export function calculateWeaponAll(weapon: Weapon) {
+	const entries: any[] = [];
+
+	// @ts-ignore stop
+	LEVELS_BY_ASCENSION.forEach((levels, ascension: Ascension) => {
+		levels.forEach((level) => {
+			entries.push({
+				...calculateWeaponStats(weapon.base_atk, level, weapon.atk_multiplier, ascension, weapon.atk_ascension)
+			});
+		});
+	});
+
+	return entries;
+} // calculateWeaponAll
