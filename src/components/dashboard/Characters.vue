@@ -52,6 +52,7 @@ function displayDetails(character: Character) {
 
 const doShowCopyCreationModal = ref(false);
 const copyInputs = ref<CharacterCopy>({
+	// id is assigned by manager
 	level: 1,
 	ascension: 0,
 	constellations: 0,

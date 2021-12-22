@@ -31,11 +31,34 @@ export type Character = {
 export type Build = { name: string, description: string, };
 export type Constellations = 0 | 1 | 2 | 3 | 4 | 5 | 6 ;
 export type CharacterCopy = {
+	id: number,
 	ascension: Ascension,
 	level: number,
 	constellations: Constellations,
 	default_build?: Build,
 	copy_of: Character,
+};
+
+export type Weapon = {
+	id: number,
+	name: string,
+	description: string,
+	rarity: 1 | 2 | 3 | 4 | 5,
+	type: WeaponType,
+	base_atk: StatValue,
+	atk_multiplier: LevelMultiplier,
+	atk_ascension: AscensionValue,
+	ascension_base: StatValue,
+	ascension_level_multiplier: LevelMultiplier,
+};
+
+export type Refinement = 1 | 2 | 3 | 4 | 5;
+export type WeaponCopy = {
+	id: number,
+	level: number,
+	ascension: Ascension,
+	refinement: Refinement,
+	copy_of: Weapon,
 };
 
 export type Store = {
@@ -44,8 +67,6 @@ export type Store = {
 	CharacterCopies: CharacterCopy[],
 	AscensionValueFactors: AscensionValueFactor[],
 	AscensionMultipliers: AscensionMultipler[],
+	Weapons: Weapon[],
+	WeaponCopies: WeaponCopy[],
 };
-export type StoreEvent = 'ready';
-export type StoreSubscriber = (store: Store) => void;
-export type SubscriptionRecord = { name: string, func: StoreSubscriber };
-export type StoreSubscribersByEvent = Record<StoreEvent, SubscriptionRecord[]>;

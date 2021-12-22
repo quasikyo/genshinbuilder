@@ -3,103 +3,127 @@ import { definitions } from '../supabase/types';
 import { PostgrestError } from '@supabase/supabase-js';
 
 import { store } from '.';
-import { Character, CharacterCopy } from '../types';
+import { Character, CharacterCopy, WeaponCopy } from '../types';
+import { SupabaseQueryBuilder } from '@supabase/supabase-js/dist/main/lib/SupabaseQueryBuilder';
 
 /**
- * Class for managing:
- * - conversion between query and database types,
- * - checking if a copy of something exists,
- * - adding to the store and db,
- * - removing from the store and db
+ * Class to streamline synchonization between DB and local store.
  *
- * @template T The query type to manage.
+ * @template StoreType The query type to synchronize changes with.
+ * @template DBTyper The DB type to syncrhonize changes to.
  */
-export abstract class Manager<T> {
-	/**
-	 * Converts the data queried to the actual db schema.
-	 * @param data
-	 */
-	abstract storeToDb(data: T): any;
+export class Manager<StoreType, DBType> {
+	table: string;
+	converter: (data: StoreType) => DBType;
+	produceMatchCriteria: (data: StoreType) => {};
 
-	/**
-	 * Checks if an instance of `base` already exists.
-	 * @param data
-	 */
-	abstract doesCopyExist(base: any): boolean;
+	constructor(
+		table: string,
+		converter: (data: StoreType) => DBType,
+		produceMatchCriteria: (data: StoreType) => {},
+	) {
+		this.table = table;
+		this.converter = converter;
+		this.produceMatchCriteria = produceMatchCriteria;
+	} // constructor
 
-	/**
-	 * Add to the db and sync to local store.
-	 * @param data
-	 */
-	abstract add(data: T): Promise<PostgrestError | null>;
+	get baseQuery(): SupabaseQueryBuilder<DBType> {
+		return supabase.from<DBType>(this.table);
+	} // baseQuery
 
-	/**
-	 * Delete from the db and sync to local store.
-	 * @param data
-	 */
-	abstract delete(data: T): Promise<PostgrestError | null>;
-
-	abstract save(data: T): Promise<PostgrestError | null>;
-} // Manager
-
-class CharacterManager extends Manager<CharacterCopy> {
-	override storeToDb(data: CharacterCopy): definitions['CharacterCopies'] {
-		return {
-			// @ts-ignore
-			owner: supabase.auth.user()?.id,
-			ascension: data.ascension,
-			level: data.level,
-			constellations: data.constellations,
-			copy_of: data.copy_of.id,
-		};
-	} // storeToDb
-
-	override doesCopyExist(base: Character): boolean {
+	// bad, don't do this
+	doesCopyExist(base: Character): boolean {
 		return !!store.CharacterCopies.find(copy => copy.copy_of.name === base.name);
 	} // doesCopyExist
 
-	override async add(data: CharacterCopy) {
-		const dbEntry = this.storeToDb(data);
+	/**
+	 * Adds the given data to the DB and local store.
+	 * @param data
+	 */
+	async add(inputs: StoreType): Promise<PostgrestError | null> {
+		const { data, error } = await this.baseQuery
+			.insert([this.converter(inputs)]);
 
-		const { error } = await supabase
-			.from<definitions['CharacterCopies']>('CharacterCopies')
-			.insert([dbEntry]);
-
-		if (!error) {
-			store.CharacterCopies.push(data);
+		if (!error && data) {
+			// @ts-ignore
+			// Versions created on the frontend aren't given an index,
+			// so give it the index insertion into the store.
+			store[this.table].push({ id: data[0].id, ...inputs});
 		} // if
 
 		return error;
 	} // add
 
-	override async delete(data: CharacterCopy) {
-		// Can't use id since some they can be created
-		// on the frontend and not be assigned one.
-		const { error } = await supabase
-			.from<definitions['CharacterCopies']>('CharacterCopies')
-			.delete().match({
-				owner: supabase.auth.user()?.id,
-				copy_of: data.copy_of.id,
-			});
+	/**
+	 * Updates the DB with the provided data.
+	 * @param data
+	 */
+	async save(data: StoreType): Promise<PostgrestError | null> {
+		const { error } = await this.baseQuery
+			.update(this.converter(data))
+			.match(this.produceMatchCriteria(data));
+		return error;
+	} // save
+
+	/**
+	 * Deletes the given data from the DB and local store.
+	 * @param dataForStore
+	 */
+	async delete(data: StoreType): Promise<PostgrestError | null> {
+		const { error } = await this.baseQuery
+			.delete().match(this.produceMatchCriteria(data));
 
 		if (!error) {
-			const deletionIndex = store.CharacterCopies.indexOf(data);
-			store.CharacterCopies.splice(deletionIndex, 1);
+			// @ts-ignore
+			const deletionIndex = store[this.table].indexOf(data);
+			// @ts-ignore
+			store[this.table].splice(deletionIndex, 1);
 		} // if
 
 		return error;
 	} // delete
+} // Manager<T>
 
-	override async save(data: CharacterCopy) {
-		const { error } = await supabase
-			.from<definitions['CharacterCopies']>('CharacterCopies')
-			.update(this.storeToDb(data)).match({
-				owner: supabase.auth.user()?.id,
-				copy_of: data.copy_of.id,
-			});
+export const characterManager = new Manager<CharacterCopy, definitions['CharacterCopies']>(
+	'CharacterCopies',
+	// @ts-ignore owner: only reachable by authenticated users
+	function toDB(data) {
+		return {
+			// don't put id here since add is where it gets its id
+			owner: supabase.auth.user()?.id,
+			level: data.level,
+			ascension: data.ascension,
+			constellations: data.constellations,
+			copy_of: data.copy_of.id,
+		};
+	},
+	function criteria(data) {
+		return {
+			id: data.id,
+			owner: supabase.auth.user()?.id,
+			copy_of: data.copy_of.id,
+		};
+	},
+);
 
-		return error;
-	} // save
-} // CharacterManager
-
-export const characterManager = new CharacterManager();
+export const weaponManager = new Manager<WeaponCopy, definitions['WeaponCopies']>(
+	'WeaponCopies',
+	// @ts-ignore owner: only reachable by authenticated users
+	function toDB(data) {
+		return {
+			// don't put id here since add is where it gets its id
+			owner: supabase.auth.user()?.id,
+			level: data.level,
+			ascension: data.ascension,
+			refinement: data.refinement,
+			copy_of: data.copy_of.id,
+		};
+	},
+	function criteria(data) {
+		return {
+			id: data.id,
+			owner: supabase.auth.user()?.id,
+			copy_of: data.copy_of.id,
+		};
+	},
+);

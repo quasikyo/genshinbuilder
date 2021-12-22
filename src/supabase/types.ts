@@ -1721,7 +1721,7 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.WeaponCopies.id"];
-          weapon_id?: parameters["rowFilter.WeaponCopies.weapon_id"];
+          copy_of?: parameters["rowFilter.WeaponCopies.copy_of"];
           level?: parameters["rowFilter.WeaponCopies.level"];
           refinement?: parameters["rowFilter.WeaponCopies.refinement"];
           owner?: parameters["rowFilter.WeaponCopies.owner"];
@@ -1777,7 +1777,7 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.WeaponCopies.id"];
-          weapon_id?: parameters["rowFilter.WeaponCopies.weapon_id"];
+          copy_of?: parameters["rowFilter.WeaponCopies.copy_of"];
           level?: parameters["rowFilter.WeaponCopies.level"];
           refinement?: parameters["rowFilter.WeaponCopies.refinement"];
           owner?: parameters["rowFilter.WeaponCopies.owner"];
@@ -1797,7 +1797,7 @@ export interface paths {
       parameters: {
         query: {
           id?: parameters["rowFilter.WeaponCopies.id"];
-          weapon_id?: parameters["rowFilter.WeaponCopies.weapon_id"];
+          copy_of?: parameters["rowFilter.WeaponCopies.copy_of"];
           level?: parameters["rowFilter.WeaponCopies.level"];
           refinement?: parameters["rowFilter.WeaponCopies.refinement"];
           owner?: parameters["rowFilter.WeaponCopies.owner"];
@@ -2305,7 +2305,7 @@ export interface definitions {
      * Note:
      * This is a Foreign Key to `Weapons.id`.<fk table='Weapons' column='id'/>
      */
-    weapon_id: number;
+    copy_of: number;
     level: number;
     refinement: number;
     owner: string;
@@ -2500,7 +2500,7 @@ export interface parameters {
   /** WeaponCopies */
   "body.WeaponCopies": definitions["WeaponCopies"];
   "rowFilter.WeaponCopies.id": string;
-  "rowFilter.WeaponCopies.weapon_id": string;
+  "rowFilter.WeaponCopies.copy_of": string;
   "rowFilter.WeaponCopies.level": string;
   "rowFilter.WeaponCopies.refinement": string;
   "rowFilter.WeaponCopies.owner": string;
