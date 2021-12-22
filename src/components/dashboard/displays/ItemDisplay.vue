@@ -8,7 +8,7 @@ import { alertUser } from '../../util';
 const props = defineProps<{
 	title: string,
 	item: any,
-	manager: Manager<any>
+	manager: Manager<any, any>
 }>();
 
 const message = useMessage();
@@ -16,7 +16,7 @@ const isUpdating = ref(false);
 async function handleDelete(data: any) {
 	isUpdating.value = true;
 	const error = await props.manager.delete(data);
-	isUpdating.value = true;
+	isUpdating.value = false;
 
 	alertUser(message, error, 'Deletion');
 } // deleteCharacterCopy
