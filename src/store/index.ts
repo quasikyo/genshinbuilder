@@ -12,17 +12,18 @@ export const store = reactive<Store>({});
  * to contain data fetched from the DB
  * and then calls all `'ready'` subscribers.
  */
-export function initStore() {
+export async function initStore(onInit: Function) {
 	if (!supabase.auth.user()) {
 		// Added layer
 		throw new Error('Unathenticated request to DB.');
 	} else if (isStoreInitialized) {
 		// Only init the store once
+		onInit();
 		return;
 	} // if
 
 	// Select all relevant data
-	Promise.all(QUERIES.map(async (query) => {
+	await Promise.all(QUERIES.map(async (query) => {
 		const { table, select, userSpecific } = query;
 
 		let queryBuilder = supabase.from(table).select(select);
@@ -36,4 +37,5 @@ export function initStore() {
 	}));
 
 	isStoreInitialized = true;
+	onInit();
 } // initStore

@@ -1,16 +1,13 @@
 <script setup lang="ts">
-import { ref, watchEffect } from 'vue';
+import { ref } from 'vue';
 import { NSpace, NSpin, NTabs, NTabPane } from 'naive-ui';
-import { initStore, store } from '../store';
+
+import { initStore } from '../store';
 
 import { DashboardComponents } from '../components/dashboard';
 
-const isStoreLoaded = ref(false); // DEGBUG (set to false when done)
-watchEffect(() => {
-	isStoreLoaded.value = 'Characters' in store; // DEBUG
-});
-
-initStore();
+const isStoreLoaded = ref(false);
+initStore(() => isStoreLoaded.value = true);
 </script>
 
 <template>
@@ -21,7 +18,9 @@ initStore();
 	<n-tabs v-else type="line" justify-content="space-evenly" size="large">
 		<n-tab-pane v-for="component in DashboardComponents" :name="component.name">
 			<n-space justify="center">
-				<component :is="component"></component>
+				<keep-alive>
+					<component :is="component"></component>
+				</keep-alive>
 			</n-space>
 		</n-tab-pane>
 	</n-tabs>

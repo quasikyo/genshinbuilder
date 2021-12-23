@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { NCard, NSpace, NIcon, useMessage } from 'naive-ui';
+import { NCard, NSpace, NIcon } from 'naive-ui';
 import { TrashAlt, Save } from '@vicons/fa';
+
 import { Manager } from '../../../store/managers';
 import AsyncButton from '../../AsyncButton.vue';
 

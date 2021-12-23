@@ -1,15 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import {
-	NSpace,
-	NButton,
-	NDrawer,
-	NDrawerContent,
-	NCard,
-	NModal,
-	NDataTable,
-	NForm, NFormItem,
-} from 'naive-ui';
+import { NSpace, NButton, NCard, NForm, NFormItem } from 'naive-ui';
 
 import { Character, CharacterCopy } from '../../types';
 
@@ -17,40 +8,18 @@ import { store } from '../../store';
 import { characterManager } from '../../store/managers';
 import { calculateCharacterAll } from '../../store/calculators';
 
+import DashboardComponent from './DashboardComponent.vue';
 import ItemsDisplay from './displays/ItemsDisplay.vue';
 import CharacterCopyInputs from './inputs/CharacterCopyInputs.vue';
 
 import AsyncButton from '../AsyncButton.vue';
+import CharacterCopyDisplay from './displays/CharacterCopyDisplay.vue';
 
-const isDrawerActive = ref(false);
-function openDrawer() {
-	isDrawerActive.value = true;
-} // openDrawer
-
-const doShowStatsModal = ref(false);
-const modalDetails = reactive<{
-	title: string;
-	tableColumns?: any[],
-	tableRows?: any[],
-}>({
-	title: '',
-	tableColumns: undefined,
-	tableRows: undefined,
-});
-function displayDetails(character: Character) {
-	modalDetails.title = character.name;
-
-	const characterStats = calculateCharacterAll(character);
-	modalDetails.tableRows = characterStats;
-	modalDetails.tableColumns = Object.keys(characterStats[0]).map((key) => {
-		return { title: key, key: key, };
-	});
-
-	doShowStatsModal.value = true;
+function displayDetails(character: Character, uiFunction: Function) {
+	uiFunction(calculateCharacterAll(character));
 } // displayDetails
 
-const doShowCopyCreationModal = ref(false);
-const copyInputs = ref<CharacterCopy>({
+const copyInputs = reactive<CharacterCopy>({
 	// id is assigned by manager
 	level: 1,
 	ascension: 0,
@@ -58,33 +27,32 @@ const copyInputs = ref<CharacterCopy>({
 	// @ts-ignore dynamically ensured
 	copy_of: undefined,
 });
-function promptCopyFields(character: Character) {
-	// Reset to defaults
-	Object.assign(copyInputs.value, <CharacterCopy>{
+function resetInputs(character: Character, uiControlFunction: Function) {
+	Object.assign(copyInputs, {
 		level: 1, ascension: 0, constellations: 0, copy_of: character,
 	});
-	doShowCopyCreationModal.value = true;
-} // promptCopyFields
+	uiControlFunction();
+} // resetInputs
 
 const isAddingCopy = ref(false);
-async function addCopyAndCloseModal() {
-	const error = await characterManager.add({ ...copyInputs.value });
-	doShowCopyCreationModal.value = !!error;
+async function addCopyAndCloseModal(uiFunction: Function) {
+	const error = await characterManager.add(copyInputs);
+
+	if (!error) {
+		uiFunction();
+	} // if
+
 	return error;
 } // addCopyAndCloseModal
 </script>
 
 <script lang="ts">
-export default {
-	name: 'Characters'
-}
+export default { name: 'Characters' };
 </script>
 
 <template>
-	<!-- Characters to choose from -->
-	<n-drawer v-model:show="isDrawerActive" placement="left" width="33%" style="min-width: 375px;">
-		<n-drawer-content :closable="true" title="Characters">
-			search and filter controls here
+	<dashboard-component title="Characters">
+		<template #drawer-content="{ uiControls: { statsModal, creationModal } }">
 			<n-card
 				v-for="character in store.Characters"
 				:title="character.name"
@@ -94,57 +62,43 @@ export default {
 			>
 				<template #header-extra>
 					<n-space justify="end" style="width: 100%;">
-						<n-button @click="displayDetails(character)">Base Stats</n-button>
+						<n-button @click="displayDetails(character, statsModal.setAndShow.bind(statsModal))">Base Stats</n-button>
 						<n-button
 							type="primary"
-							@click="promptCopyFields(character)"
+							@click="resetInputs(character, creationModal.show)"
 							:disabled="characterManager.doesCopyExist(character)"
 						>Add</n-button>
 					</n-space>
 				</template>
 			</n-card>
-		</n-drawer-content>
-	</n-drawer>
+		</template>
 
-	<!-- Stats for a specific character -->
-	<n-modal
-		v-model:show="doShowStatsModal"
-		preset="card"
-		:title="modalDetails.title + '\'s Base Stats'"
-		style="width: 45%; min-width: 450px;"
-	>
-		<n-data-table
-			striped
-			:columns="modalDetails.tableColumns"
-			:data="modalDetails.tableRows"
-			:pagination="{ pageSize: 10 }"
-		></n-data-table>
-	</n-modal>
-
-	<!-- Copy creation -->
-	<n-modal
-		v-model:show="doShowCopyCreationModal"
-		preset="card"
-		:title="copyInputs?.copy_of?.name"
-		style="width: fit-content;"
-	>
-		<n-space justify="center">
+		<template #creation="{ uiControls: { creationModal: { hide } } }">
 			<n-form :model="copyInputs" size="large">
 				<character-copy-inputs :copy="copyInputs"></character-copy-inputs>
 				<n-form-item>
 					<n-space justify="end" style="width: 100%;">
 						<async-button
 							type="primary"
-							:operation="addCopyAndCloseModal"
+							:operation="() => addCopyAndCloseModal(hide)"
 							operationName="Create"
 							v-model:status="isAddingCopy"
 						></async-button>
 					</n-space>
 				</n-form-item>
 			</n-form>
-		</n-space>
-	</n-modal>
+		</template>
 
-	<!-- Owned copies -->
-	<items-display :data="store.CharacterCopies" :onAddClicked="openDrawer"></items-display>
+		<!-- <template #items-display> says where to put it -->
+		<!-- <items-display> denotes data to use and how to reacte to button click -->
+		<!-- <template #item-display> is a slot provided by <items-display> that exposes a data entry -->
+		<!-- <character-copy-display> takes that exposed data entry and, well, displays it -->
+		<template #items-display="{ uiControls: { drawer: { show } } }">
+			<items-display :data="store.CharacterCopies" :onAddClicked="show">
+				<template #item-display="{ entry }">
+					<character-copy-display :copy="entry"></character-copy-display>
+				</template>
+			</items-display>
+		</template>
+	</dashboard-component>
 </template>

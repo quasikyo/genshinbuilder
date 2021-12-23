@@ -2,16 +2,13 @@
 import { NGrid, NGi, NButton, NIcon } from 'naive-ui';
 import { Plus } from '@vicons/fa';
 
-import CharacterCopyDisplay from './CharacterCopyDisplay.vue';
-
 defineProps<{ data: any[], onAddClicked: () => void }>();
 </script>
 
 <template>
 	<n-grid responsive="screen" cols="xs:1 s:1 m:2 l:3 xl:4" :x-gap="12" :y-gap="12">
 		<n-gi v-for="entry in data">
-			<!-- Dynamically determine which display to use -->
-			<character-copy-display :copy="entry"></character-copy-display>
+			<slot name="item-display" :entry="entry"></slot>
 		</n-gi>
 
 		<n-gi suffix>
