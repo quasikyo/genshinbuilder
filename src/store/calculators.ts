@@ -6,7 +6,8 @@ import {
 	CharacterCopy,
 	LevelMultiplier,
 	StatValue,
-	Weapon
+	Weapon,
+	WeaponCopy
 } from '../types';
 
 /**
@@ -163,3 +164,12 @@ export function calculateWeaponAll(weapon: Weapon) {
 
 	return entries;
 } // calculateWeaponAll
+
+export function calculateWeaponCopyStats(copy: WeaponCopy) {
+	return {
+		...calculateWeaponStats(
+			copy.copy_of.base_atk, copy.level, copy.copy_of.atk_multiplier,
+			copy.ascension, copy.copy_of.atk_ascension,
+		),
+	};
+} // calculateWeaponCopyStats

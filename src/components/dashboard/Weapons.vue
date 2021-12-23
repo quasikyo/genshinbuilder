@@ -1,52 +1,50 @@
 <script setup lang="ts">
 import { ref, reactive } from 'vue';
-import { NDrawer, NDrawerContent, NCard, NSpace, NButton, NModal, NDataTable } from 'naive-ui';
+import { NCard, NSpace, NButton, NForm, NFormItem } from 'naive-ui';
+
+import { Weapon, WeaponCopy } from '../../types';
 
 import { store } from '../../store';
-import { Weapon } from '../../types';
+import { weaponManager } from '../../store/managers';
 import { calculateWeaponAll } from '../../store/calculators';
 
+import DashboardComponent from './DashboardComponent.vue';
 import ItemsDisplay from './displays/ItemsDisplay.vue';
+import WeaponCopyDisplay from './displays/WeaponCopyDisplay.vue';
+import WeaponCopyInputs from './inputs/WeaponCopyInputs.vue';
 
-const isDrawerOpen = ref(false);
-function openDrawer() {
-	isDrawerOpen.value = true;
-} // openDrawer
+import AsyncButton from '../AsyncButton.vue';
 
-const doShowStatsModal = ref(false);
-const modalDetails = reactive<{
-	title: string;
-	tableColumns?: any[],
-	tableRows?: any[],
-}>({
-	title: '',
-	tableColumns: undefined,
-	tableRows: undefined,
-});
-function displayDetails(weapon: Weapon) {
-	modalDetails.title = weapon.name;
-
-	const weaponStats = calculateWeaponAll(weapon);
-	modalDetails.tableRows = weaponStats;
-	modalDetails.tableColumns = Object.keys(weaponStats[0]).map((key) => {
-		return { title: key, key: key, };
-	});
-
-	doShowStatsModal.value = true;
+function displayDetails(weapon: Weapon, uiFunction: Function) {
+	uiFunction(calculateWeaponAll(weapon));
 } // displayDetails
+
+const copyDefaults: WeaponCopy = {
+	level: 1,
+	ascension: 0,
+	refinement: 1,
+	// @ts-ignore dynamically ensured
+	copy_of: undefined,
+};
+const copyInputs = reactive<WeaponCopy>({ ...copyDefaults });
+function resetInputs(weapon: Weapon, uiFunction: Function) {
+	Object.assign(copyInputs, copyDefaults, { copy_of: weapon });
+	uiFunction();
+} // resetInputs
+
+const isAddingCopy = ref(false);
+function addCopyAndCloseModal(uiFunction: Function) {
+	const error = weaponManager.add(copyInputs);
+	!error && uiFunction();
+	return error;
+} // addCopyAndCloseModal
 </script>
 
-<script lang="ts">
-export default {
-	name: 'Weapons'
-}
-</script>
+<script lang="ts">export default { name: 'Weapons' };</script>
 
 <template>
-	<!-- Weapons to choose from -->
-	<n-drawer v-model:show="isDrawerOpen" placement="left" width="33%" style="min-width: 375px;">
-		<n-drawer-content :closable="true" title="Weapons">
-			search and filter controls here
+	<dashboard-component title="Weapons">
+		<template #drawer-content="{ uiControls: { statsModal, creationModal } }">
 			<n-card
 				v-for="weapon in store.Weapons"
 				:title="weapon.name"
@@ -56,30 +54,35 @@ export default {
 				{{ weapon.description }}
 				<template #header-extra>
 					<n-space justify="end" style="width: 100%;">
-						<n-button @click="displayDetails(weapon)">Base Stats</n-button>
-						<n-button
-							type="primary"
-						>Add</n-button>
+						<n-button @click="displayDetails(weapon, statsModal.setAndShow.bind(statsModal))">Base Stats</n-button>
+						<n-button type="primary" @click="resetInputs(weapon, creationModal.show)">Add</n-button>
 					</n-space>
 				</template>
 			</n-card>
-		</n-drawer-content>
-	</n-drawer>
+		</template>
 
-	<!-- Stats for a specific weapon -->
-	<n-modal
-		v-model:show="doShowStatsModal"
-		preset="card"
-		:title="modalDetails.title + '\'s Base Stats'"
-		style="width: 45%; min-width: 450px;"
-	>
-		<n-data-table
-			striped
-			:columns="modalDetails.tableColumns"
-			:data="modalDetails.tableRows"
-			:pagination="{ pageSize: 10 }"
-		></n-data-table>
-	</n-modal>
+		<template #creation="{ uiControls: { creationModal: { hide } } }">
+			<n-form :model="copyInputs" size="large">
+				<weapon-copy-inputs :copy="copyInputs"></weapon-copy-inputs>
+				<n-form-item>
+					<n-space justify="end" style="width: 100%;">
+						<async-button
+							type="primary"
+							:operation="() => addCopyAndCloseModal(hide)"
+							operationName="Create"
+							v-model:status="isAddingCopy"
+						></async-button>
+					</n-space>
+				</n-form-item>
+			</n-form>
+		</template>
 
-	<items-display :data="store.WeaponCopies" :onAddClicked="openDrawer"></items-display>
+		<template #items-display="{ uiControls: { drawer: { show } } }">
+			<items-display :data="store.WeaponCopies" :onAddClicked="show">
+				<template #item-display="{ entry }">
+					<weapon-copy-display :copy="entry"></weapon-copy-display>
+				</template>
+			</items-display>
+		</template>
+	</dashboard-component>
 </template>
