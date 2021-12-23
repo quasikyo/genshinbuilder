@@ -10,11 +10,14 @@ import { SupabaseQueryBuilder } from '@supabase/supabase-js/dist/main/lib/Supaba
  * Class to streamline synchonization between DB and local store.
  *
  * @template StoreType The query type to synchronize changes with.
- * @template DBTyper The DB type to syncrhonize changes to.
+ * @template DBType The DB type to syncrhonize changes to.
  */
 export class Manager<StoreType, DBType> {
+	/** The corresponding DB table/store key. */
 	table: string;
+	/** Convert what's in the store to DB format. */
 	converter: (data: StoreType) => DBType;
+	/** Match criteria for update and delete operations. */
 	produceMatchCriteria: (data: StoreType) => {};
 
 	constructor(
@@ -27,14 +30,12 @@ export class Manager<StoreType, DBType> {
 		this.produceMatchCriteria = produceMatchCriteria;
 	} // constructor
 
+	/** The base query to send to superbase. */
 	get baseQuery(): SupabaseQueryBuilder<DBType> {
+		// Have to return a new one each time since it'll
+		// otherwise just keep appending to the same URL
 		return supabase.from<DBType>(this.table);
 	} // baseQuery
-
-	// bad, don't do this
-	doesCopyExist(base: Character): boolean {
-		return !!store.CharacterCopies.find(copy => copy.copy_of.name === base.name);
-	} // doesCopyExist
 
 	/**
 	 * Adds the given data to the DB and local store.
@@ -48,7 +49,7 @@ export class Manager<StoreType, DBType> {
 			// @ts-ignore
 			// Versions created on the frontend aren't given an index,
 			// so give it the index insertion into the store.
-			store[this.table].push({ id: data[0].id, ...inputs});
+			store[this.table].push({ id: data[0].id, ...inputs });
 		} // if
 
 		return error;
@@ -84,7 +85,17 @@ export class Manager<StoreType, DBType> {
 	} // delete
 } // Manager<T>
 
-export const characterManager = new Manager<CharacterCopy, definitions['CharacterCopies']>(
+class CharacterManager extends Manager<CharacterCopy, definitions['CharacterCopies']> {
+	/**
+	 * Checks if a copy of a given character already exists.
+	 * @param base
+	 */
+	doesCopyExist(base: Character): boolean {
+		return !!store.CharacterCopies.find(copy => copy.copy_of.name === base.name);
+	} // doesCopyExist
+} // CharacterManager
+
+export const characterManager = new CharacterManager(
 	'CharacterCopies',
 	// @ts-ignore owner: only reachable by authenticated users
 	function toDB(data) {
@@ -98,8 +109,9 @@ export const characterManager = new Manager<CharacterCopy, definitions['Characte
 		};
 	},
 	function criteria(data) {
+		// Composite key to ensure only one
+		// copy of a certain character
 		return {
-			id: data.id,
 			owner: supabase.auth.user()?.id,
 			copy_of: data.copy_of.id,
 		};
