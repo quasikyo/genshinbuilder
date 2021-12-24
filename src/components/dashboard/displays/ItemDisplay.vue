@@ -12,7 +12,9 @@ const isUpdating = ref(false);
 
 <template>
 	<n-card :title="title">
-		<slot></slot>
+		<n-space style="padding-bottom: 1rem;">
+			<slot></slot>
+		</n-space>
 		<slot name="item-edit"></slot>
 		<slot name="item-values"></slot>
 		<template #action>

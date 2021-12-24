@@ -50,23 +50,23 @@ function regress(x: number, factors: number[]): number {
  * @returns `{ Level: number, [statAbbreviation]: string, ... }`
  */
 export function calculateCharacterStats(
-		baseStats: StatValue[],
-		level: number,
-		levelMultiplier: LevelMultiplier,
-		ascension: Ascension,
-		ascensionValues: AscensionValue[],
-	): {} {
-		const calculatedStats = { Level: level };
-		ascension = ascension || 0;
-		baseStats.forEach((stat, i) => {
-			Object.assign(calculatedStats, {
-				[stat.stat.abbreviation]: (stat.value
-					* regress(level, levelMultiplier.regression_factors)
-					+ ascensionValues[i].values[0]
-					* store.AscensionValueFactors[ascension].factor).toFixed(2)
-			});
+	baseStats: StatValue[],
+	level: number,
+	levelMultiplier: LevelMultiplier,
+	ascension: Ascension,
+	ascensionValues: AscensionValue[],
+): {} {
+	const calculatedStats = { Level: level };
+	ascension = ascension || 0;
+	baseStats.forEach((stat, i) => {
+		Object.assign(calculatedStats, {
+			[stat.stat.abbreviation]: (stat.value
+				* regress(level, levelMultiplier.regression_factors)
+				+ ascensionValues[i].values[0]
+				* store.AscensionValueFactors[ascension].factor).toFixed(2)
 		});
-		return calculatedStats;
+	});
+	return calculatedStats;
 } // calculateCharacterStat
 
 /**
@@ -150,6 +150,15 @@ function calculateWeaponStats(
 	};
 } // calculateWeaponStats
 
+function calculateWeaponAscensionStat(base: StatValue, level: number, multiplier: LevelMultiplier) {
+	// After level 1, value only changes every 5 levels
+	level = (5 * Math.floor(level / 5)) || 1
+	return {
+		[base.stat.abbreviation]: (base.value
+			* regress(level, multiplier.regression_factors)).toFixed(2)
+	};
+} // calculateWeaponAscensionStat
+
 export function calculateWeaponAll(weapon: Weapon) {
 	const entries: any[] = [];
 
@@ -157,7 +166,14 @@ export function calculateWeaponAll(weapon: Weapon) {
 	LEVELS_BY_ASCENSION.forEach((levels, ascension: Ascension) => {
 		levels.forEach((level) => {
 			entries.push({
-				...calculateWeaponStats(weapon.base_atk, level, weapon.atk_multiplier, ascension, weapon.atk_ascension)
+				...calculateWeaponStats(
+					weapon.base_atk, level, weapon.atk_multiplier,
+					ascension, weapon.atk_ascension
+				),
+				...calculateWeaponAscensionStat(
+					weapon.ascension_base, level,
+					weapon.ascension_level_multiplier
+				),
 			});
 		});
 	});
@@ -170,6 +186,10 @@ export function calculateWeaponCopyStats(copy: WeaponCopy) {
 		...calculateWeaponStats(
 			copy.copy_of.base_atk, copy.level, copy.copy_of.atk_multiplier,
 			copy.ascension, copy.copy_of.atk_ascension,
+		),
+		...calculateWeaponAscensionStat(
+			copy.copy_of.ascension_base, copy.level,
+			copy.copy_of.ascension_level_multiplier
 		),
 	};
 } // calculateWeaponCopyStats

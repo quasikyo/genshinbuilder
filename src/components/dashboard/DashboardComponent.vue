@@ -43,7 +43,6 @@ const uiControls = {
 		setStats(newStats: any[]) {
 			stats.rows = newStats;
 			stats.columns = Object.keys(newStats[0]).map((key) => {
-				console.log(key)
 				return { key, title: key, };
 			});
 		}, // setStats

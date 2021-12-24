@@ -10,38 +10,32 @@ import { calculateCharacterAll } from '../../store/calculators';
 
 import DashboardComponent from './DashboardComponent.vue';
 import ItemsDisplay from './displays/ItemsDisplay.vue';
+import CharacterCopyDisplay from './displays/CharacterCopyDisplay.vue';
 import CharacterCopyInputs from './inputs/CharacterCopyInputs.vue';
 
 import AsyncButton from '../AsyncButton.vue';
-import CharacterCopyDisplay from './displays/CharacterCopyDisplay.vue';
 
 function displayDetails(character: Character, uiFunction: Function) {
 	uiFunction(calculateCharacterAll(character));
 } // displayDetails
 
-const copyInputs = reactive<CharacterCopy>({
-	// id is assigned by manager
+const copyDefaults: CharacterCopy = {
 	level: 1,
 	ascension: 0,
 	constellations: 0,
 	// @ts-ignore dynamically ensured
 	copy_of: undefined,
-});
-function resetInputs(character: Character, uiControlFunction: Function) {
-	Object.assign(copyInputs, {
-		level: 1, ascension: 0, constellations: 0, copy_of: character,
-	});
-	uiControlFunction();
+};
+const copyInputs = reactive<CharacterCopy>({ ...copyDefaults });
+function resetInputs(character: Character, uiFunction: Function) {
+	Object.assign(copyInputs, copyDefaults, { copy_of: character });
+	uiFunction();
 } // resetInputs
 
 const isAddingCopy = ref(false);
 async function addCopyAndCloseModal(uiFunction: Function) {
 	const error = await characterManager.add(copyInputs);
-
-	if (!error) {
-		uiFunction();
-	} // if
-
+	!error && uiFunction();
 	return error;
 } // addCopyAndCloseModal
 </script>

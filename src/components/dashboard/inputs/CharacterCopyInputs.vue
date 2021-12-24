@@ -6,8 +6,8 @@ import { CharacterCopy } from '../../../types';
 
 const props = defineProps<{ copy: CharacterCopy }>();
 
-let minLevel = ref(1);
-let maxLevel = ref(90);
+const minLevel = ref(1);
+const maxLevel = ref(90);
 watchEffect(() => {
 	const ascensionLevels = LEVELS_BY_ASCENSION[props.copy.ascension || 0];
 	minLevel.value = ascensionLevels[0];

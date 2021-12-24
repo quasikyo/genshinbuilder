@@ -17,7 +17,7 @@ initStore(() => isStoreLoaded.value = true);
 
 	<n-tabs v-else type="line" justify-content="space-evenly" size="large">
 		<n-tab-pane v-for="component in DashboardComponents" :name="component.name">
-			<n-space justify="center">
+			<n-space justify="center" style="padding: 0 2rem;">
 				<keep-alive>
 					<component :is="component"></component>
 				</keep-alive>

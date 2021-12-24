@@ -33,8 +33,8 @@ function resetInputs(weapon: Weapon, uiFunction: Function) {
 } // resetInputs
 
 const isAddingCopy = ref(false);
-function addCopyAndCloseModal(uiFunction: Function) {
-	const error = weaponManager.add(copyInputs);
+async function addCopyAndCloseModal(uiFunction: Function) {
+	const error = await weaponManager.add(copyInputs);
 	!error && uiFunction();
 	return error;
 } // addCopyAndCloseModal
