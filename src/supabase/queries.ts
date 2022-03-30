@@ -1,6 +1,6 @@
-const STAT_SELECT = `
-	value, stat (abbreviation)
-`;
+import { Query } from '../types';
+
+const STAT_SELECT = `value, stat (abbreviation)`;
 
 const CHARACTER_SELECT = `
 	id, name, rarity, element, weapon_type,
@@ -23,7 +23,10 @@ const WEAPON_SELECT = `
 	ascension_level_multiplier (regression_factors)
 `;
 
-export const QUERIES = [
+/**
+ * Data to select pull from the database.
+ */
+export const QUERIES: Query[] = [
 	{
 		table: 'Characters',
 		select: CHARACTER_SELECT,
@@ -35,7 +38,7 @@ export const QUERIES = [
 			default_build (name, description),
 			copy_of (${CHARACTER_SELECT})
 		`,
-		userSpecific: true,
+		isUserSpecific: true,
 	},
 	{
 		table: 'AscensionValueFactors',
@@ -55,6 +58,14 @@ export const QUERIES = [
 			id, level, ascension, refinement,
 			copy_of (${WEAPON_SELECT})
 		`,
-		userSpecific: true,
+		isUserSpecific: true,
 	},
+	{
+		table: 'ArtifactSets',
+		select: `
+			id, name, one_piece_bonus (description),
+			two_piece_bonus (description), four_piece_bonus (description),
+			rarities, limited_pieces
+		`,
+	}
 ];

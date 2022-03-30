@@ -39,7 +39,7 @@ export class Manager<StoreType, DBType> {
 
 	/**
 	 * Adds the given data to the DB and local store.
-	 * @param data
+	 * @param inputs
 	 */
 	async add(inputs: StoreType): Promise<PostgrestError | null> {
 		const { data, error } = await this.baseQuery

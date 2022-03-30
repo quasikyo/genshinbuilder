@@ -11,23 +11,25 @@ export const store = reactive<Store>({});
  * Updates the global `store` instance
  * to contain data fetched from the DB
  * and then calls all `'ready'` subscribers.
+ *
+ * @param onInit callback for when the store is initialized
  */
-export async function initStore(onInit: Function) {
+export async function initStore(onInit?: Function) {
 	if (!supabase.auth.user()) {
 		// Added layer
 		throw new Error('Unathenticated request to DB.');
 	} else if (isStoreInitialized) {
 		// Only init the store once
-		onInit();
+		onInit && onInit();
 		return;
 	} // if
 
 	// Select all relevant data
 	await Promise.all(QUERIES.map(async (query) => {
-		const { table, select, userSpecific } = query;
+		const { table, select, isUserSpecific } = query;
 
 		let queryBuilder = supabase.from(table).select(select);
-		if (userSpecific) {
+		if (isUserSpecific) {
 			// TODO: ideally this should be handled by reading properties
 			queryBuilder = queryBuilder.eq('owner', supabase.auth.user()?.id);
 		} // if
@@ -37,5 +39,6 @@ export async function initStore(onInit: Function) {
 	}));
 
 	isStoreInitialized = true;
-	onInit();
+	console.log(store)
+	onInit && onInit();
 } // initStore
