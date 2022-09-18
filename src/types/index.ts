@@ -77,7 +77,7 @@ export type ArtifactSet = {
 export type Query = {
 	table: string,
 	select: string,
-	isUserSpecific?: boolean,
+	builders?: Record<string, () => [string, string?]>,
 };
 
 export type Store = {

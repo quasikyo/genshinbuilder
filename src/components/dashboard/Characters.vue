@@ -83,7 +83,7 @@ export default { name: 'Characters' };
 			</n-form>
 		</template>
 
-		<!-- <template #items-display> says where to put it -->
+		<!-- <template #items-display> says where to put it in the dashboard -->
 		<!-- <items-display> denotes data to use and how to reacte to button click -->
 		<!-- <template #item-display> is a slot provided by <items-display> that exposes a data entry -->
 		<!-- <character-copy-display> takes that exposed data entry and, well, displays it -->

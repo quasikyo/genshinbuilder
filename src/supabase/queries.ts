@@ -1,3 +1,4 @@
+import { supabase } from '.';
 import { Query } from '../types';
 
 const STAT_SELECT = `value, stat (abbreviation)`;
@@ -23,9 +24,13 @@ const WEAPON_SELECT = `
 	ascension_level_multiplier (regression_factors)
 `;
 
+const userSpecific = (): [string, string?] => ['owner', supabase.auth.user()?.id];
+
 /**
  * Data to select pull from the database.
  */
+// TODO: manually map copies to their base instead of pulling in duplicates
+// TODO: manually map distributions to increases instead of pulling in duplicates
 export const QUERIES: Query[] = [
 	{
 		table: 'Characters',
@@ -38,19 +43,19 @@ export const QUERIES: Query[] = [
 			default_build (name, description),
 			copy_of (${CHARACTER_SELECT})
 		`,
-		isUserSpecific: true,
+		builders: { eq: userSpecific, },
 	},
 	{
 		table: 'AscensionValueFactors',
-		select: 'ascension, factor'
+		select: 'ascension, factor',
 	},
 	{
 		table: 'AscensionMultipliers',
-		select: 'ascension, multiplier'
+		select: 'ascension, multiplier',
 	},
 	{
 		table: 'Weapons',
-		select: WEAPON_SELECT
+		select: WEAPON_SELECT,
 	},
 	{
 		table: 'WeaponCopies',
@@ -58,7 +63,7 @@ export const QUERIES: Query[] = [
 			id, level, ascension, refinement,
 			copy_of (${WEAPON_SELECT})
 		`,
-		isUserSpecific: true,
+		builders: { eq: userSpecific, },
 	},
 	{
 		table: 'ArtifactSets',
@@ -67,5 +72,24 @@ export const QUERIES: Query[] = [
 			two_piece_bonus (description), four_piece_bonus (description),
 			rarities, limited_pieces
 		`,
-	}
+	},
+	{
+		table: 'ArtifactCopies',
+		select: `
+			id, main_stat (${STAT_SELECT}), type,
+		`,
+		builders: { eq: userSpecific, },
+	},
+	// {
+	// 	table: 'ArtifactSubstatDistributions',
+	// 	select: ``,
+	// },
+	// {
+	// 	table: 'ArtifactStatMultipliers',
+	// 	select: `rarity, stat (abbreviation), multiplier`,
+	// },
+	// {
+	// 	table: 'ArtifactSubstatIncreases',
+	// 	select: `rarity, ${STAT_SELECT}`,
+	// },
 ];

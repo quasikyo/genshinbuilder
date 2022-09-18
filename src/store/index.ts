@@ -26,13 +26,14 @@ export async function initStore(onInit?: Function) {
 
 	// Select all relevant data
 	await Promise.all(QUERIES.map(async (query) => {
-		const { table, select, isUserSpecific } = query;
+		const { table, select, builders } = query;
 
 		let queryBuilder = supabase.from(table).select(select);
-		if (isUserSpecific) {
-			// TODO: ideally this should be handled by reading properties
-			queryBuilder = queryBuilder.eq('owner', supabase.auth.user()?.id);
-		} // if
+		builders && Object.entries(builders).forEach((builder) => {
+			const [operationName, operation] = builder;
+			// @ts-ignore operationName is guaranteed to be a valid function
+			queryBuilder = queryBuilder[operationName](...operation());
+		});
 		const { data, error } = await queryBuilder;
 
 		error ? console.error(error) : Object.assign(store, { [table]: data });
