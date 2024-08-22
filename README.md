@@ -2,7 +2,7 @@
 An app dedicated to managing character builds and rotations.
 
 ## Setup
-1. `git checkout https://github.com/michaelrehman/genshinbuilder.git`
+1. `git checkout https://github.com/quasikyo/genshinbuilder.git`
 2. `cd genshinbuilder`
 3. `npm install`
 4. `npm run dev`
